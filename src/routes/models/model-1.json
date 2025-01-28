@@ -1,0 +1,9 @@
+{
+    "name": "Photo AI Pro",
+    "description": "Generate professional photos with AI.",
+    "plans": [
+      { "id": "plan-1", "name": "Basic", "price": 10 },
+      { "id": "plan-2", "name": "Pro", "price": 20 }
+    ]
+  }
+  
