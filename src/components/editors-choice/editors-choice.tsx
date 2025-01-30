@@ -9,8 +9,8 @@ export const EditorsChoice = component$(() => {
   ];
 
   return (
-    <section class="py-16 bg-gray-50">
-      <div class="container mx-auto px-6">
+    <section class="bg-black">
+      <div class="container mx-auto px-6 bg-black">
         <h2 class="text-3xl font-bold text-gray-800 mb-8">Editor's Choice</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {models.map((model, index) => (

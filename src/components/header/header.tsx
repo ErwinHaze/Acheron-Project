@@ -3,14 +3,13 @@ import { component$ } from '@builder.io/qwik';
 
 export const Header = component$(() => {
   return (
-    <header class="bg-gray-900 text-white py-4 shadow-lg">
+    <header class="bg-black text-white py-4 shadow-lg">
       <div class="container mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <div class="text-2xl font-bold flex items-center">
-          <img src="/logo.png" alt="AI Store Logo" class="h-8 mr-2" />
+          <img src="../public/favicon.png" alt="AI Store Logo" class="h-20 w-20 mr-2" />
           AI Store
         </div>
-
         {/* Navigation Links */}
         <nav class="flex space-x-6">
           <a href="#" class="hover:text-blue-400 transition-colors">Home</a>

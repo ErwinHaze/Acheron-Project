@@ -3,7 +3,7 @@ import { component$ } from '@builder.io/qwik';
 
 export const Footer = component$(() => {
   return (
-    <footer class="bg-gray-800 text-white py-12">
+    <footer class="bg-black text-white py-12">
       <div class="container mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
@@ -28,7 +28,7 @@ export const Footer = component$(() => {
           <div>
             <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
             <div class="flex space-x-4">
-              <a href="#" class="text-gray-400 hover:text-white">Twitter</a>
+              <a href="#" class="text-gray-400 hover:text-white">X</a>
               <a href="#" class="text-gray-400 hover:text-white">LinkedIn</a>
               <a href="#" class="text-gray-400 hover:text-white">GitHub</a>
             </div>

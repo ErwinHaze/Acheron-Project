@@ -5,7 +5,7 @@ export const EmptyLine = component$(() => {
   
   return (
     <>
-    <div class="w-full h-20 bg-black"></div>
+    <div class="w-full h-2 bg-blue-400"></div>
     </>
   );
 });

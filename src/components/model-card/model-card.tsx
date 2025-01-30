@@ -9,9 +9,9 @@ export const ModelCard =  component$(() => {
   ];
 
   return (
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-blue-400">
       {models.map((model, index) => (
-        <div key={index} class="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+        <div key={index} class="bg-black p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
           <img src={model.logo} alt={model.name} class="w-20 h-20 mx-auto mb-4" />
           <h3 class="text-xl font-semibold text-white">{model.name}</h3>
           <p class="text-gray-400 mb-2">{model.category}</p>
