@@ -1,4 +1,3 @@
-// src/components/header.tsx
 import { component$ } from '@builder.io/qwik';
 
 export const Header = component$(() => {
@@ -10,8 +9,9 @@ export const Header = component$(() => {
           <img src="../public/favicon.png" alt="AI Store Logo" class="h-20 w-20 mr-2" />
           AI Store
         </div>
+
         {/* Navigation Links */}
-        <nav class="flex space-x-6">
+        <nav class="hidden md:flex space-x-6">
           <a href="#" class="hover:text-blue-400 transition-colors">Home</a>
           <a href="#" class="hover:text-blue-400 transition-colors">Categories</a>
           <a href="#" class="hover:text-blue-400 transition-colors">Trending</a>
@@ -26,7 +26,7 @@ export const Header = component$(() => {
               placeholder="Search AI models..."
               class="px-4 py-2 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button class="absolute right-2 top-2 text-gray-400 hover:text-white">
+            <button aria-label="Search" class="absolute right-2 top-2 text-gray-400 hover:text-white">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
               </svg>

@@ -1,4 +1,3 @@
-// src/components/editors-choice.tsx
 import { component$ } from '@builder.io/qwik';
 
 export const EditorsChoice = component$(() => {
@@ -15,7 +14,7 @@ export const EditorsChoice = component$(() => {
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {models.map((model, index) => (
             <div key={index} class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-              <img src={model.logo} alt={model.name} class="w-20 h-20 mx-auto mb-4" />
+              <img src={model.logo} alt={model.name} class="w-20 h-20 mx-auto mb-4" loading="lazy" />
               <h3 class="text-xl font-semibold text-gray-800">{model.name}</h3>
               <p class="text-gray-600 mb-2">{model.category}</p>
               <p class="text-gray-500">{model.description}</p>

@@ -4,20 +4,15 @@ import { Hero } from '../components/Hero/hero';
 import { CategorySection } from '~/components/category-section/category-section';
 import { Footer } from '~/components/Footer/Footer';
 import { ModelCard } from '~/components/model-card/model-card';
-import { EmptyLine } from '~/components/empty-line/empty-line';
 
 export default component$(() => {
   return (
     <>
       <Header />
-      <EmptyLine />
       <Hero />
-      <EmptyLine />
       <ModelCard />
-      <EmptyLine />
       <CategorySection />
-      <EmptyLine />
       <Footer />
     </>
-  )
+  );
 });

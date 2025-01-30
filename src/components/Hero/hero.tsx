@@ -1,4 +1,3 @@
-// src/components/hero.tsx
 import { component$ } from '@builder.io/qwik';
 
 export const Hero = component$(() => {
@@ -10,8 +9,11 @@ export const Hero = component$(() => {
         muted
         loop
         class="absolute w-full h-full object-cover opacity-50"
+        preload="none"
       >
         <source src="../public/bg-motion.mp4" type="video/mp4" />
+        <source src="../public/bg-motion.webm" type="video/webm" />
+        <img src="../public/bg-fallback.jpg" alt="Background" class="absolute w-full h-full object-cover opacity-50" />
         Your browser does not support the video tag.
       </video>
 

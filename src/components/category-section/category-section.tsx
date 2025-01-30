@@ -1,7 +1,6 @@
-// src/components/category-section.tsx
 import { component$ } from '@builder.io/qwik';
 
-export const CategorySection =  component$(() => {
+export const CategorySection = component$(() => {
   const categories = [
     { name: 'Graphic Design', models: ['Canva AI', 'Adobe Firefly', 'Runway ML'] },
     { name: 'Video Editing', models: ['Pictory', 'Synthesia', 'Descript'] },
@@ -19,7 +18,7 @@ export const CategorySection =  component$(() => {
               <ul class="space-y-2">
                 {category.models.map((model, idx) => (
                   <li key={idx} class="text-white hover:text-blue-500">
-                    <a href="#">{model}</a>
+                    <a href="#" aria-label={`Learn more about ${model}`}>{model}</a>
                   </li>
                 ))}
               </ul>
