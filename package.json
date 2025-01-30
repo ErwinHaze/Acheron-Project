@@ -49,6 +49,7 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
-    "firebase": "11.2.0"
+    "firebase": "11.2.0",
+    "lottie-web": "^5.12.2"
   }
 }

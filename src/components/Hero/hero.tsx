@@ -1,15 +1,25 @@
 // src/components/hero.tsx
 import { component$ } from '@builder.io/qwik';
 
-export const Hero =  component$(() => {
+export const Hero = component$(() => {
   return (
-    <section class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20">
-      <div class="container mx-auto px-6 text-center">
-        <h1 class="text-5xl font-bold mb-4">Discover the Best AI Models</h1>
-        <p class="text-xl mb-8">
-          Explore cutting-edge AI tools for graphic design, video editing, music generation, and more.
-        </p>
-        <button class="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100">
+    <section class="relative h-[400px] flex items-center justify-center bg-gray-800 overflow-hidden">
+      {/* Background Video or Image */}
+      <video
+        autoplay
+        muted
+        loop
+        class="absolute w-full h-full object-cover opacity-50"
+      >
+        <source src="/hero-background.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Content */}
+      <div class="relative text-center text-white">
+        <h1 class="text-5xl font-bold mb-4">Discover the Future of AI</h1>
+        <p class="text-xl mb-8">Explore cutting-edge AI models for every need.</p>
+        <button class="px-8 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors">
           Get Started
         </button>
       </div>
