@@ -21,7 +21,7 @@ export default component$(() => {
           <p class="mt-2">{data.bio}</p>
           <h2 class="mt-4 text-2xl font-semibold">Models</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-            {data.models.map((model) => (
+            {data.models.map((model: any) => (
               <a
                 href={`/models/${model.id}`}
                 key={model.id}
