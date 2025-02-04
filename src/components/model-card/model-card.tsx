@@ -3,10 +3,10 @@ import { component$, useSignal, useTask$ } from '@builder.io/qwik';
 export const ModelCard = component$(() => {
   const models = useSignal([]);
 
-  useTask$(async () => {
-    const response = await fetch('http://localhost:3000/api/models');
-    models.value = await response.json();
-  });
+  // useTask$(async () => {
+  //   const response = await fetch('http://localhost:3000/api/models');
+  //   models.value = await response.json();
+  // });
 
   return (
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-blue-400">
