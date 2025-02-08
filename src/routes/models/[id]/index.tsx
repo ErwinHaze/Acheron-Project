@@ -1,36 +1,47 @@
-import { component$, useResource$, Resource } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
+import { component$ } from '@builder.io/qwik';
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { collection, doc, getDoc } from 'firebase/firestore';
+import { db } from '~/api/app';
+
+interface Plan {
+    name: string;
+    price: number;
+}
+
+interface Model {
+    id: string;
+    name: string;
+    description: string;
+    plans: Plan[]
+}
+
+export const useData = routeLoader$(async (requestEvent) => {
+    // const category_id = requestEvent.params.id;
+
+    const model: any = (await getDoc(doc(collection(db, "models"), requestEvent.params.id))).data() as unknown;
+
+    delete model.category;
+
+    return model as Model;
+});
 
 export default component$(() => {
-  const location = useLocation();
-  const modelId = location.params.modelId;
+    const data = useData().value;
 
-  // Mock data fetching
-  const modelData = useResource$(() =>
-    fetch(`/mock-data/models/${modelId}.json`).then((res) => res.json())
-  );
-
-  return (
-    <Resource
-      value={modelData}
-      onPending={() => <p>Loading...</p>}
-      onRejected={() => <p>Error loading model data.</p>}
-      onResolved={(data) => (
+    return (
         <div>
-          <h1 class="text-3xl font-bold">{data.name}</h1>
-          <p class="mt-2">{data.description}</p>
-          <div class="mt-4">
-            <h2 class="text-2xl font-semibold">Plans</h2>
-            <ul class="mt-2">
-              {data.plans.map((plan) => (
-                <li key={plan.id} class="mt-2">
-                  <span class="font-bold">{plan.name}</span> - ${plan.price}/month
-                </li>
-              ))}
-            </ul>
-          </div>
+            <h1 class="text-3xl font-bold">{data.name}</h1>
+            <p class="mt-2">{data.description}</p>
+            <div class="mt-4">
+                <h2 class="text-2xl font-semibold">Plans</h2>
+                <ul class="mt-2">
+                    {data.plans.map((plan) => (
+                        <li key={plan.name} class="mt-2">
+                            <span class="font-bold">{plan.name}</span> - ${plan.price}/month
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
-      )}
-    />
-  );
+    );
 });
