@@ -44,3 +44,5 @@ lerna-debug.log*
 # Firebase
 functions/server
 functions/node_modules
+
+bun.lockb
