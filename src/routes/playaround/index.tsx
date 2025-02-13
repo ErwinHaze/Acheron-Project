@@ -1,5 +1,5 @@
 import { component$, useStore, $ } from "@builder.io/qwik";
-
+import { Header } from "~/components/header/header";
 export default component$(() => {
     type ModelCategories = "Chat" | "Photo" | "Video" | "Audio" | "Agents" | "Programming";
     
@@ -29,6 +29,8 @@ export default component$(() => {
     });
 
     return (
+        <>
+        <Header />
         <div class="bg-white p-6 rounded-lg shadow-md mt-6">
             <h2 class="text-2xl font-bold mb-4">Playaround</h2>
             <div class="mb-4">
@@ -64,5 +66,6 @@ export default component$(() => {
                 </div>
             )}
         </div>
+        </>
     );
 });
