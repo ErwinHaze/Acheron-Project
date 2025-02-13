@@ -1,6 +1,6 @@
 import { component$, useStore, $ } from "@builder.io/qwik";
 
-export const Playaround = component$(() => {
+export default component$(() => {
     type ModelCategories = "Chat" | "Photo" | "Video" | "Audio" | "Agents" | "Programming";
     
     const state = useStore({
