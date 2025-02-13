@@ -1,28 +1,40 @@
 import { component$ } from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
-import { collection, doc, getDoc } from 'firebase/firestore';
-import { db } from '~/api/app';
+import { createClient } from '@supabase/supabase-js';
+// import { createServerClient } from 'supabase-auth-helpers-qwik';
 
-interface Plan {
+interface Version {
     name: string;
-    price: number;
 }
 
 interface Model {
     id: string;
     name: string;
     description: string;
-    plans: Plan[]
+    versions: Version[];
 }
 
 export const useData = routeLoader$(async (requestEvent) => {
+    /* const client = createServerClient(
+        requestEvent.env.get('PUBLIC_SUPABASE_URL')!,
+        requestEvent.env.get('PUBLIC_SUPABASE_ANON_KEY')!,
+        requestEvent
+    ); */
+    const client = createClient(
+        requestEvent.env.get('PUBLIC_SUPABASE_URL')!,
+        requestEvent.env.get('PUBLIC_SUPABASE_ANON_KEY')!,
+        {
+            
+        }
+    );
     // const category_id = requestEvent.params.id;
 
-    const model: any = (await getDoc(doc(collection(db, "models"), requestEvent.params.id))).data() as unknown;
+    // console.log(await client.from("models").insert({ name: "hey", description: "yo" }));
 
-    delete model.category;
+    const { data } = await client.from("models").select("*");//.eq('id', requestEvent.params.id);
+    console.log(data);
 
-    return model as Model;
+    return {} as Model;
 });
 
 export default component$(() => {
@@ -35,11 +47,11 @@ export default component$(() => {
             <div class="mt-4">
                 <h2 class="text-2xl font-semibold">Plans</h2>
                 <ul class="mt-2">
-                    {data.plans.map((plan) => (
+                    {/* {data.versions.map((plan) => (
                         <li key={plan.name} class="mt-2">
-                            <span class="font-bold">{plan.name}</span> - ${plan.price}/month
+                            <span class="font-bold">{plan.name}</span> - ${0.0}/month
                         </li>
-                    ))}
+                    ))} */}
                 </ul>
             </div>
         </div>
