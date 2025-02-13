@@ -12,10 +12,10 @@ export const Header = component$(() => {
 
         {/* Navigation Links */}
         <nav class="hidden md:flex space-x-6">
-          <a href="#" class="hover:text-blue-400 transition-colors">Home</a>
-          <a href="#" class="hover:text-blue-400 transition-colors">Categories</a>
-          <a href="#" class="hover:text-blue-400 transition-colors">Trending</a>
-          <a href="#" class="hover:text-blue-400 transition-colors">Pricing</a>
+          <a href="/playaround" class="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">Playaround</a>
+          <a href="/categories" class="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">Categories</a>
+          <a href="/trending" class="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">Trending</a>
+          <a href="/docs" class="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">Docs</a>
         </nav>
 
         {/* Search Bar and User Account */}

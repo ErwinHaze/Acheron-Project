@@ -1,6 +1,11 @@
 import { component$, Resource, useResource$ } from "@builder.io/qwik";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "~/api/app";
+import { Header } from "~/components/header/header";
+import { MainCategories } from "~/components/categories-comps/MainCategories/MainCategories";
+import { MainNiches } from "~/components/categories-comps/MainNiches/MainNiches";
+import { AiLabs } from "~/components/categories-comps/AiLabs/AiLabs";
+import { Footer } from '~/components/Footer/Footer';
 
 export type Model = {
     id: string;
@@ -31,7 +36,12 @@ export default component$(() => {
     });
 
     return (<>
+        <Header />
+        <MainCategories />
+        <MainNiches />
+        <AiLabs />
         <h1>Here is a list of all models: </h1>
         <Resource value={categories} onResolved={(cats) => cats.map(cat => <h1 key={cat.id}>{cat.name}</h1>)} />
+        <Footer />
     </>);
 });
