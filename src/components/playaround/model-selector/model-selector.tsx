@@ -1,4 +1,4 @@
-import { component$, PropFunction } from '@builder.io/qwik';
+import { component$, $, PropFunction } from '@builder.io/qwik';
 
 interface ModelSelectorProps {
   models: string[];
