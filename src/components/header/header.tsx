@@ -7,14 +7,14 @@ export const Header = component$(() => {
         {/* Logo */}
         <div class="text-2xl font-bold flex items-center">
           <img src="../public/favicon.png" alt="AI Store Logo" class="h-20 w-20 mr-2" />
-          AI Store
+          <a href=''>EpixaL</a> 
         </div>
 
         {/* Navigation Links */}
         <nav class="hidden md:flex space-x-6">
           <a href="/playaround" class="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">Playaround</a>
           <a href="/categories" class="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">Categories</a>
-          <a href="/trending" class="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">Trending</a>
+          <a href="/statistics" class="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">Statistics</a>
           <a href="/docs" class="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">Docs</a>
         </nav>
 

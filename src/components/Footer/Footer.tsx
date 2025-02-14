@@ -7,7 +7,7 @@ export const Footer = component$(() => {
       <div class="container mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 class="text-xl font-bold mb-4">AI Store</h3>
+            <h3 class="text-xl font-bold mb-4">EpixaL</h3>
             <p class="text-gray-400">Discover the best AI tools for your needs.</p>
           </div>
           <div>

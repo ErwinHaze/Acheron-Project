@@ -40,8 +40,6 @@ export default component$(() => {
         <MainCategories />
         <MainNiches />
         <AiLabs />
-        <h1>Here is a list of all models: </h1>
-        <Resource value={categories} onResolved={(cats) => cats.map(cat => <h1 key={cat.id}>{cat.name}</h1>)} />
         <Footer />
     </>);
 });
