@@ -1,71 +1,101 @@
-import { component$, useStore, $ } from "@builder.io/qwik";
-import { Header } from "~/components/header/header";
+import { component$, useStore, useResource$, Resource, $ } from '@builder.io/qwik';
+import { Footer } from '~/components/Footer/Footer';
+import { Header } from '~/components/header/header';
+import { ModelSelector } from '~/components/playaround/model-selector/model-selector';
+import { PlayaroundOptions } from '~/components/playaround/playaround-options/playaround-options';
+import { PlayaroundOutput } from '~/components/playaround/playaround-output/playaround-output';
+
 export default component$(() => {
-    type ModelCategories = "Chat" | "Photo" | "Video" | "Audio" | "Agents" | "Programming";
-    
-    const state = useStore({
-        selectedCategory: "Chat" as ModelCategories,
-        selectedModel: "",
-        categories: ["Chat", "Photo", "Video", "Audio", "Agents", "Programming"] as ModelCategories[],
-        models: {
-            Chat: ["Model A", "Model B"],
-            Photo: ["Model C", "Model D"],
-            Video: ["Model E", "Model F"],
-            Audio: ["Model G", "Model H"],
-            Agents: ["Model I", "Model J"],
-            Programming: ["Model K", "Model L"]
-        } as Record<ModelCategories, string[]>
-    });
+  // State store for customization options
+  const store = useStore({
+    modelType: 'GPT-4',
+    responseSpeed: 'fast',
+    temperature: 0.7,
+    contextLength: 2048,
+    outputFormat: 'text',
+    selectedModel: '',      // For user’s model selection from the list
+    userPrompt: '',         // The text input from the user
+    response: '',           // The AI response
+  });
 
-    const handleCategoryChange = $((event: Event) => {
-        const target = event.target as HTMLSelectElement;
-        state.selectedCategory = target.value as ModelCategories;
-        state.selectedModel = "";
-    });
+  // Resource to fetch the list of available models
+  const modelsResource = useResource$(async () => {
+    const res = await fetch('/api/models');
+    if (!res.ok) {
+      throw new Error('Failed to fetch model list');
+    }
+    return res.json();
+  });
 
-    const handleModelChange = $((event: Event) => {
-        const target = event.target as HTMLSelectElement;
-        state.selectedModel = target.value;
-    });
+  // Function to handle user prompt submission (fixed with $())
+  const handleSubmit = $(async () => {
+    try {
+      const res = await fetch('/api/playaround', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: store.selectedModel || store.modelType,
+          responseSpeed: store.responseSpeed,
+          temperature: store.temperature,
+          contextLength: store.contextLength,
+          outputFormat: store.outputFormat,
+          prompt: store.userPrompt,
+        }),
+      });
+      const data = await res.json();
+      store.response = data.response;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  });
 
-    return (
-        <>
-        <Header />
-        <div class="bg-white p-6 rounded-lg shadow-md mt-6">
-            <h2 class="text-2xl font-bold mb-4">Playaround</h2>
-            <div class="mb-4">
-                <label class="block text-gray-700">Select Category:</label>
-                <select class="mt-1 block w-full" value={state.selectedCategory} onChange$={handleCategoryChange}>
-                    {state.categories.map(category => (
-                        <option key={category} value={category}>{category}</option>
-                    ))}
-                </select>
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700">Select Model:</label>
-                <select class="mt-1 block w-full" value={state.selectedModel} onChange$={handleModelChange}>
-                    <option value="">Select a model</option>
-                    {state.models[state.selectedCategory].map(model => (
-                        <option key={model} value={model}>{model}</option>
-                    ))}
-                </select>
-            </div>
-            {state.selectedModel && (
-                <div class="mt-6">
-                    <h3 class="text-xl font-semibold">Interacting with {state.selectedModel}</h3>
-                    <div class="mt-4">
-                        {/* Add interaction options and sections here */}
-                        <p class="text-gray-600">This is where you can interact with the selected model.</p>
-                        {/* Example interaction section */}
-                        <div class="mt-4">
-                            <label class="block text-gray-700">Input:</label>
-                            <input type="text" class="mt-1 block w-full" placeholder="Enter your input here" />
-                            <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+  return (
+    <>
+    <Header />
+    <div class="flex flex-col md:flex-row min-h-screen">
+      {/* Left Panel: Model list & customizations */}
+      <aside class="md:w-1/4 bg-gray-100 p-4 border-r">
+        <h1 class="text-xl font-bold mb-4">Playaround</h1>
+
+        {/* Customization options above the model list */}
+        <PlayaroundOptions store={store} />
+
+        {/* Dynamic Model Selector */}
+        <Resource
+          value={modelsResource}
+          onPending={() => <p>Loading models...</p>}
+          onRejected={(error) => <p>Error: {error.message}</p>}
+          onResolved={(models: Array<string>) => (
+            <ModelSelector
+              models={models}
+              store={store}
+            />
+          )}
+        />
+      </aside>
+
+      {/* Main Interaction Area */}
+      <main class="md:w-3/4 p-4">
+        <div class="mb-4">
+          <label class="block mb-2 font-semibold">Your Prompt</label>
+          <textarea
+            class="w-full p-2 border rounded"
+            rows={6}
+            value={store.userPrompt}
+            onInput$={(e) => (store.userPrompt = (e.target as HTMLTextAreaElement).value)}
+          />
+          <button
+            class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+            onClick$={handleSubmit}  // ✅ Wrapped with $()
+          >
+            Send
+          </button>
         </div>
-        </>
-    );
+
+        <PlayaroundOutput response={store.response} />
+      </main>
+    </div>
+    <Footer />
+    </>
+  );
 });
