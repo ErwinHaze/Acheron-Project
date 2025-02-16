@@ -2,6 +2,7 @@ import { component$, useSignal, useStyles$, $ } from '@builder.io/qwik';
 import { ModelCard } from '~/components/organisms/ModelCard/ModelCard';
 import { AIModel } from '~/types/models';
 import styles from './model-sidebar.css?inline';
+import ModelList from './model-list';
 
 // Inline ChevronIcon component
 const ChevronIcon = component$<{ direction: 'down' | 'right' }>(({ direction }) => {
@@ -64,18 +65,11 @@ export default component$(() => {
             <ChevronIcon direction={expanded.value.myModels ? 'down' : 'right'} />
           </div>
           {expanded.value.myModels && (
-            <div class="model-list">
-              {models.value
-                .filter(m => m.isSaved)
-                .map(model => (
-                  <ModelCard 
-                    key={model.id}
-                    model={model}
-                    isSelected={selectedModel.value?.id === model.id}
-                    onSelect$={() => (selectedModel.value = model)}
-                  />
-                ))}
-            </div>
+            <ModelList 
+              models={models.value.filter(m => m.isSaved)}
+              selectedModel={selectedModel.value}
+              onSelectModel={(model) => (selectedModel.value = model)}
+            />
           )}
         </div>
 
@@ -85,16 +79,11 @@ export default component$(() => {
             <ChevronIcon direction={expanded.value.explore ? 'down' : 'right'} />
           </div>
           {expanded.value.explore && (
-            <div class="model-list">
-              {models.value.map(model => (
-                <ModelCard
-                  key={model.id}
-                  model={model}
-                  isSelected={selectedModel.value?.id === model.id}
-                  onSelect$={() => (selectedModel.value = model)}
-                />
-              ))}
-            </div>
+            <ModelList 
+              models={models.value}
+              selectedModel={selectedModel.value}
+              onSelectModel={(model) => (selectedModel.value = model)}
+            />
           )}
         </div>
       </div>

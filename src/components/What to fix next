@@ -1,36 +1,36 @@
-root/
-├── ai-labs/
-├── api/
-├── auth/
-├── categories/
-├── dashboard/
-├── misc/
-├── models/
-├── playground/
-├── saved/
-├── search/
-├── statistics/
-├── templates/
-├── routes/
-
-├── components/
-│   ├── atoms/
-│   │   ├── AccuracySlider/
-│   │   ├── CategoryFilter
-│   │   ├── AccuracySlider/
-│   │   ├── FacetGroup/
-│   │   ├── RangeSlider/
-│   │   ├── Buttons/
-│   │   ├── Icons/
-│   │   ├── Loaders/
-│   │   ├── official-badge/
-│   │   └── SwipeableItem/
+root/$$$
+├── ai-labs/$
+├── api/$
+├── auth/$
+├── categories/$
+├── dashboard/$
+├── misc/$
+├── models/$
+├── playground/$
+├── saved/$
+├── search/$
+├── statistics/$
+├── templates/$
+├── routes/$
+│ 
+├── components/$$$
+│   ├── atoms/$$
+│   │   ├── AccuracySlider/$
+│   │   ├── CategoryFilter/$
+│   │   ├── FacetGroup/$
+│   │   ├── RangeSlider/$
+│   │   ├── Buttons/$
+│   │   ├── Icons/$
+│   │   ├── Loaders/$
+│   │   ├── official-badge/$
+│   │   └── SwipeableItem/$
 │   │
 │   ├── molecules/
 │   │   ├── Badge/$ but -> leaderboardcharts needs backend fix (chart.js)
 │   │   ├── DominanceChart/ needs backend fix (chart.js)
 │   │   ├── FilterDropdowns/$
 │   │   ├── ProgressBar/$
+│   │   ├── IntelligentSearchBar/$
 │   │   ├── SavedItemControls/$ needs backend fix (supabase) 
 │   │   ├── SearchBar/$
 │   │   ├── SearchSuggestions/$ needs api fix 
@@ -38,7 +38,6 @@ root/
 │   │
 │   ├── organisms/
 │   │   ├── ActivityFeed/$
-│   │   ├── IntelligentSearchBar/
 │   │   ├── CategoryGrid/$
 │   │   ├── Footer/$
 │   │   ├── Header/$
