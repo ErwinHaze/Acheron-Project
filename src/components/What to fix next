@@ -12,9 +12,14 @@ root/
 ├── statistics/
 ├── templates/
 ├── routes/
-│
+
 ├── components/
 │   ├── atoms/
+│   │   ├── AccuracySlider/
+│   │   ├── CategoryFilter
+│   │   ├── AccuracySlider/
+│   │   ├── FacetGroup/
+│   │   ├── RangeSlider/
 │   │   ├── Buttons/
 │   │   ├── Icons/
 │   │   ├── Loaders/
