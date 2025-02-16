@@ -66,7 +66,7 @@ export const LiveRankings = component$((props: LiveRankingsProps) => {
                 <span>{lab.models_count} models</span>
               </div>
             </div>
-            <ReputationScore value={lab.reputation} />
+            <ReputationScore score={lab.reputation} />
           </div>
         ))}
       </div>
