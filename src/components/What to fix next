@@ -28,11 +28,27 @@ root/
 │   │   ├── ProgressBar/$
 │   │   ├── SavedItemControls/$ needs backend fix (supabase) 
 │   │   ├── SearchBar/$
-│   │   └── SearchFacets/
+│   │   ├── SearchSuggestions/$ needs api fix 
+│   │   └── SearchFacets/$
 │   │
 │   ├── organisms/
+│   │   ├── ActivityFeed/$
 │   │   ├── IntelligentSearchBar/
-│   │   └── ScrollContainer/
+│   │   ├── CategoryGrid/
+│   │   ├── Footer/
+│   │   ├── Header/
+│   │   ├── Hero/
+│   │   ├── LoginForm/
+│   │   ├── model-card/
+│   │   ├── ModelCard/
+│   │   ├── OverviewSection/
+│   │   ├── PerformanceInsightsChart/
+│   │   ├── SavedModelsList/
+│   │   ├── SearchResultGrid/
+│   │   ├── SortabelCategoriesTable/
+│   │   ├── SortableLabsTable/
+│   │   ├── StatsBlock/
+│   │   ├── TrendingModels/
 │   │
 │   └── templates/
 │       ├── AuthLayout/

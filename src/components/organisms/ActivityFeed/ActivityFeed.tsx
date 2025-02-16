@@ -1,7 +1,17 @@
 // components/organisms/ActivityFeed/ActivityFeed.tsx
 import { component$ } from '@builder.io/qwik';
 
-export default component$(({ activities }) => {
+interface Activity {
+  id: string;
+  description: string;
+  timestamp: number;
+}
+
+interface ActivityFeedProps {
+  activities: Activity[];
+}
+
+export default component$<ActivityFeedProps>(({ activities }) => {
   return (
     <div class="activity-feed">
       {activities.length > 0 ? (

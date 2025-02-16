@@ -1,8 +1,14 @@
 // components/organisms/OverviewSection/OverviewSection.tsx
 import { component$ } from '@builder.io/qwik';
-import StatCard from '~/components/molecules/StatCard/StatCard';
+import { StatCard } from '~/components/molecules/StatCard/StatCard';
 
-export default component$(({ savedModelsCount, activeLabsFollowed, recentInteractions }) => {
+interface OverviewSectionProps {
+  savedModelsCount: any;
+  activeLabsFollowed: any;
+  recentInteractions: any;
+}
+
+export default component$<OverviewSectionProps>(({ savedModelsCount, activeLabsFollowed, recentInteractions }) => {
   return (
     <div class="overview-section">
       <h2>Overview</h2>

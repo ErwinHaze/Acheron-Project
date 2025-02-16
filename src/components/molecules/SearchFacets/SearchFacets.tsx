@@ -1,8 +1,7 @@
-import { component$ } from '@builder.io/qwik';
-import { FacetGroup } from '../../atoms/FacetGroup';
-import { CategoryFilter } from '../../atoms/CategoryFilter';
-import { RangeSlider } from '../../atoms/RangeSlider';
-import { AccuracySlider } from '../../atoms/AccuracySlider';
+import { component$, JSX } from '@builder.io/qwik';
+import { CategoryFilter } from '../../atoms/CategoryFilter/CategoryFilter';
+import { RangeSlider } from '../../atoms/RangeSlider/RangeSlider';
+import { AccuracySlider } from '../../atoms/AccuracySlider/AccuracySlider';
 
 interface Filters {
   category: string;
@@ -14,6 +13,20 @@ interface SearchFacetsProps {
   filters: Filters;
   onFilterChange$: (filters: Filters) => void;
 }
+
+interface FacetGroupProps {
+  title: string;
+  children?: JSX.Element;
+}
+
+export const FacetGroup = component$<FacetGroupProps>(({ title, children }) => {
+  return (
+    <div>
+      <h3>{title}</h3>
+      {children}
+    </div>
+  );
+});
 
 export const SearchFacets = component$<SearchFacetsProps>(({ filters, onFilterChange$ }) => {
   return (
