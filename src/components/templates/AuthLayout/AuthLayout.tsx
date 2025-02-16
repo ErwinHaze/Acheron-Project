@@ -1,7 +1,12 @@
 // components/templates/AuthLayout/AuthLayout.tsx
 import { component$ } from '@builder.io/qwik';
 
-export default component$(({ title, children }) => {
+interface AuthLayoutProps {
+  title: any;
+  children: any;
+}
+
+export default component$<AuthLayoutProps>(({ title, children }) => {
   return (
     <div class="auth-layout">
       <header>

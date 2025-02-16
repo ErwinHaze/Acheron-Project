@@ -34,20 +34,19 @@ root/
 │   ├── organisms/
 │   │   ├── ActivityFeed/$
 │   │   ├── IntelligentSearchBar/
-│   │   ├── CategoryGrid/
-│   │   ├── Footer/
-│   │   ├── Header/
-│   │   ├── Hero/
-│   │   ├── LoginForm/
-│   │   ├── model-card/
-│   │   ├── ModelCard/
-│   │   ├── OverviewSection/
-│   │   ├── PerformanceInsightsChart/
-│   │   ├── SavedModelsList/
-│   │   ├── SearchResultGrid/
-│   │   ├── SortabelCategoriesTable/
-│   │   ├── SortableLabsTable/
-│   │   ├── StatsBlock/
+│   │   ├── CategoryGrid/$
+│   │   ├── Footer/$
+│   │   ├── Header/$
+│   │   ├── Hero/$
+│   │   ├── LoginForm/$
+│   │   ├── ModelCard/$
+│   │   ├── OverviewSection/$
+│   │   ├── PerformanceInsightsChart/$
+│   │   ├── SavedModelsList/$
+│   │   ├── SearchResultGrid/$
+│   │   ├── SortabelCategoriesTable/$
+│   │   ├── SortableLabsTable/$
+│   │   ├── StatsBlock/$
 │   │   ├── TrendingModels/
 │   │
 │   └── templates/
