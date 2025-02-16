@@ -1,6 +1,6 @@
 import { component$, useVisibleTask$ } from '@builder.io/qwik';
 import { Chart, registerables } from 'chart.js';
-import type { DominanceCategory } from '../DominanceCategory/DominanceCategory';
+import { type DominanceCategory } from '~/types';
 
 Chart.register(...registerables);
 

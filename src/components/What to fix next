@@ -23,11 +23,11 @@ root/
 │   │
 │   ├── molecules/
 │   │   ├── Badge/$ but -> leaderboardcharts needs backend fix (chart.js)
-│   │   ├── DominanceChart/ need backend fix (chart.js)
-│   │   ├── FilterDropdowns/
-│   │   ├── ProgressBar/
-│   │   ├── SavedItemControls/
-│   │   ├── SearchBar/
+│   │   ├── DominanceChart/ needs backend fix (chart.js)
+│   │   ├── FilterDropdowns/$
+│   │   ├── ProgressBar/$
+│   │   ├── SavedItemControls/$ needs backend fix (supabase) 
+│   │   ├── SearchBar/$
 │   │   └── SearchFacets/
 │   │
 │   ├── organisms/
