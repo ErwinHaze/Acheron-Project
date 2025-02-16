@@ -1,8 +1,0 @@
-{
-    "name": "John Doe",
-    "bio": "Experienced AI developer specializing in image generation.",
-    "models": [
-      { "id": "model-1", "name": "Photo AI Pro", "description": "Generate professional photos with AI." }
-    ]
-  }
-  

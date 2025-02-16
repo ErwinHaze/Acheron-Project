@@ -1,0 +1,141 @@
+here is my routes tree :
+ + ├─ categories/$*             # AI Model Categories & Listings
+│  ├─ index.tsx               # Categories Overview with Trending, New, and Top-Rated Models
+│  ├─ [categoryId].tsx        # Individual Category Page
+│
++ ├─ models/$*                # AI Model Listings & Details
+│  ├─ index.tsx               # All AI Models Listing
+│  ├─ [modelId].tsx           # AI Model Detail Page
+│  ├─ compare.tsx             # AI Model Comparison Page
+│
++ ├─ ai-labs/$*           # AI Labs & Research Groups 
+│  ├─ index.tsx               # List of AI Laboratories
+│  ├─ leaderboard.tsx         # Top AI Labs Ranking
+│
++ ├─ playaround/$*          # AI Model Playground
+│  ├─ index.tsx               # Playground Home for AI Model Interactions
+│
++ ├─ statistics/$*            # Analytics & Market Insights
+│  ├─ index.tsx               # Overall AI Model Market Stats
+│
++ ├─ search/$*                # Search & Discover AI Models
+│  ├─ index.tsx               # Global Search Page
+│
++ ├─ saved/$*                 # User Watchlist & Saved Models
+│  ├─ index.tsx               # User-Saved AI Models
+│
++ ├─ api/Luis                 # API Routes for SSR & Data Fetching
+│  ├─ models.ts               # Fetch AI Models Data
+│
++ ├─ auth/$*                  # User Authentication
+│  ├─ login.tsx               # User Login Page
+│  ├─ register.tsx            # User Registration Page
+│  ├─ forgot-password.tsx     # Password Recovery Page
+│  ├─ verify-email.tsx        # Email Verification Page
+│
++ ├─ dashboard/$*             # User Dashboard
+│  ├─ index.tsx               # User Dashboard Overview
+│
++ ├─ misc/$*                  # Informational & Legal Pages
+│  ├─ about.tsx              # About the Platform
+│  ├─ terms.tsx               # Terms of Service
+│  ├─ privacy.tsx             # Privacy Policy
+│  ├─ contact.tsx             # Contact Us Page
+│  ├─ roadmap.tsx             # Feature Roadmap
+│
++ ├─ index.tsx $*             # Homepage
++ ├─ layout.tsx $*            # Global Layout Wrapper                                                                             and here is my comps tree : src/components
+
+
+
+
+
++ ├─ atoms/
+│  ├─ Buttons/
+│  │  ├─ Button.tsx
+│  │  ├─ IconButton.tsx
+│  │  └─ FloatingActionButton.tsx
+│  ├─ Icons/
+│  │  ├─ ChevronDownIcon.tsx
+│  │  ├─ TrendArrowIcon.tsx
+│  │  └─ SortIcon.tsx
+│  ├─ Loaders/
+│  │  ├─ LoadingSpinner.tsx
+│  │  └─ SkeletonLoader.tsx
+│  └─ EmptyLine.tsx
+
++ ├─ molecules/
+│  ├─ SearchBar/
+│  │  └─ SearchBar.tsx
+│  ├─ FilterDropdowns/
+│  │  ├─ PriceFilter.tsx
+│  │  ├─ AccuracyFilter.tsx
+│  │  └─ CategoryFilter.tsx
+│  ├─ Badge/
+│  │  ├─ CategoryBadge.tsx
+│  │  └─ TrendingBadge.tsx
+│  └─ ProgressBar/
+│     ├─ AccuracyProgressBar.tsx
+│     └─ DominanceProgressBar.tsx
+
++ ├─ organisms/
+│  ├─ ModelCard/
+│  │  ├─ ModelCard.tsx
+│  │  └─ ModelCardCompact.tsx
+│  ├─ CategoryGrid/
+│  │  ├─ CategoryGrid.tsx
+│  │  └─ CategoryGridItem.tsx
+│  ├─ Hero/
+│  │  └─ HeroSection.tsx
+│  ├─ TrendingModels/
+│  │  ├─ TrendingModelsList.tsx
+│  │  └─ TrendingModelItem.tsx
+│  └─ StatsBlock/
+│     ├─ StatsBlock.tsx
+│     └─ StatsCard.tsx
+
++ ├─ templates/
+│  ├─ ListingLayout/
+│  │  ├─ ListingLayout.tsx
+│  │  └─ ListingItem.tsx
+│  ├─ DetailLayout/
+│  │  ├─ DetailLayout.tsx
+│  │  └─ DetailSection.tsx
+│  └─ PlaygroundLayout/
+│     ├─ PlaygroundLayout.tsx
+│     └─ PlaygroundPanel.tsx
+
++ └─ features/
+   ├─ model-discovery/
+   │  ├─ EditorsChoice/
+   │  │  ├─ EditorsChoiceGrid.tsx
+   │  │  └─ EditorsChoiceCard.tsx
+   │  ├─ IntelligentFilters/
+   │  │  ├─ ModelFilter.tsx
+   │  │  └─ FilterGroup.tsx
+   │  └─ ModelComparator/
+   │     ├─ ModelComparator.tsx
+   │     └─ ComparisonPanel.tsx
+   ├─ model-playground/
+   │  ├─ DemoViewer/
+   │  │  └─ DemoViewer.tsx
+   │  ├─ Selector/
+   │  │  ├─ ModelSelector.tsx
+   │  │  └─ SelectorDropdown.tsx
+   │  └─ PresetSystem/
+   │     ├─ PresetSystem.tsx
+   │     └─ PresetItem.tsx
+   ├─ creator-portal/
+   │  ├─ ProfileHeader/
+   │  │  └─ CreatorProfileHeader.tsx
+   │  └─ ModelUploadWizard/
+   │     ├─ ModelUploadWizard.tsx
+   │     └─ UploadStep.tsx
+   └─ analytics/
+      ├─ LiveTicker/
+      │  ├─ LiveTicker.tsx
+      │  └─ TickerItem.tsx
+      └─ MetricHub/
+         ├─ MetricHub.tsx
+         ├─ MetricCard.tsx
+         └─ MetricChart.tsx

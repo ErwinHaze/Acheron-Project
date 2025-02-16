@@ -1,6 +1,6 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { createClient } from '@supabase/supabase-js';
-import { CategoryCard, CategoriesFilter, MarketOverview, SortableCategoriesTable } from '~/components/features/model-discovery';
+import { LabCard, LabsFilter, LabsStats, SortableLabsTable } from '~/components/features/ai-labs';
 
 export default component$(() => {
   const supabase = createClient(
@@ -8,63 +8,64 @@ export default component$(() => {
     import.meta.env.PUBLIC_SUPABASE_KEY
   );
 
-  const categories = useSignal<Category[]>([]);
-  const sortBy = useSignal('model_count');
+  const labs = useSignal<Lab[]>([]);
+  const sortBy = useSignal('reputation');
   const filter = useSignal('all');
 
   useVisibleTask$(({ track }) => {
     track(() => [sortBy.value, filter.value]);
 
-    const fetchCategories = async () => {
+    const fetchLabs = async () => {
       let query = supabase
-        .from('categories')
+        .from('ai_labs')
         .select(`
           id,
           name,
-          model_count,
-          weekly_trend,
-          dominance,
-          total_compute_cost,
-          top_model,
-          icon_url
+          reputation,
+          models_count,
+          papers_count,
+          funding,
+          location,
+          avatar_url,
+          trending_score
         `);
 
       if (filter.value !== 'all') {
-        query = query.ilike('domain', `%${filter.value}%`);
+        query = query.ilike('specialization', `%${filter.value}%`);
       }
 
       const { data } = await query
         .order(sortBy.value, { ascending: false })
         .limit(100);
 
-      categories.value = data || [];
+      labs.value = data || [];
     };
 
-    fetchCategories();
+    fetchLabs();
   });
 
   return (
     <div class="container mx-auto px-4">
-      <MarketOverview />
+      <LabsStats />
       
       <div class="grid gap-6 md:grid-cols-4">
         <div class="md:col-span-1">
-          <CategoriesFilter 
+          <LabsFilter 
             currentFilter={filter.value}
             onFilter$={(f) => filter.value = f}
           />
         </div>
         
         <div class="md:col-span-3">
-          <SortableCategoriesTable
-            categories={categories.value}
+          <SortableLabsTable
+            labs={labs.value}
             sortBy={sortBy.value}
             onSort$={(s) => sortBy.value = s}
           />
           
           <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-8">
-            {categories.value.slice(0, 6).map(category => (
-              <CategoryCard key={category.id} category={category} />
+            {labs.value.slice(0, 6).map(lab => (
+              <LabCard key={lab.id} lab={lab} />
             ))}
           </div>
         </div>
