@@ -1,5 +1,7 @@
-import { component$ } from 'src/libraries/teact/teact';
-export const LeaderboardChart = component$(({ data }) => {
+import { component$ } from '@builder.io/qwik';
+import { useTask$, useContext, createContextId } from '@builder.io/qwik';
+import { Chart } from 'chart.js/auto';
+export const LeaderboardChart = component$(({ data }: { data: any[] }) => {
     useVisibleTask$(({ cleanup }) => {
       const ctx = document.getElementById('labChart');
       const chart = new Chart(ctx, {
@@ -23,8 +25,36 @@ export const LeaderboardChart = component$(({ data }) => {
         }
       });
   
-      cleanup(() => chart.destroy());
+      cleanup(chart.destroy);
     });
   
     return <canvas id="labChart" class="w-full" />;
   });
+  const VisibleTaskContextId = createContextId<{ cleanup: () => void }>(
+    'visible-task-context'
+  );
+
+  function useVisibleTask$(callback: ({ cleanup }: { cleanup: () => void }) => void) {
+    const cleanupContext = useContext(VisibleTaskContextId);
+    useTask$(() => {
+      let cleanupFn: (() => void) | undefined;
+
+      const cleanup = () => {
+        if (cleanupFn) {
+          cleanupFn();
+          cleanupFn = undefined;
+        }
+      };
+
+      const taskContext = { cleanup };
+      const taskCleanup = callback(taskContext);
+
+      if (typeof taskCleanup === 'function') {
+        cleanupFn = taskCleanup;
+      }
+
+      return () => {
+        cleanup();
+      };
+    });
+  }

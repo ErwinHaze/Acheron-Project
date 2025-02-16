@@ -1,6 +1,6 @@
 import { component$, useVisibleTask$, useSignal } from '@builder.io/qwik';
 import { createClient } from '@supabase/supabase-js';
-import { ReputationScore } from '~/components/ui/reputationScore/ReputationScore';
+import { ReputationScore } from '~/components/molecules/Badge/ReputationScore';
 
 // components/features/analytics/LiveRanking.tsx
 interface LiveRankingsProps {

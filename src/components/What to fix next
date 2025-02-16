@@ -1,0 +1,51 @@
+root/
+├── ai-labs/
+├── api/
+├── auth/
+├── categories/
+├── dashboard/
+├── misc/
+├── models/
+├── playground/
+├── saved/
+├── search/
+├── statistics/
+├── templates/
+├── routes/
+│
+├── components/
+│   ├── atoms/
+│   │   ├── Buttons/
+│   │   ├── Icons/
+│   │   ├── Loaders/
+│   │   ├── official-badge/
+│   │   └── SwipeableItem/
+│   │
+│   ├── molecules/
+│   │   ├── Badge/$ but -> leaderboardcharts needs backend fix (chart.js)
+│   │   ├── DominanceChart/ need backend fix (chart.js)
+│   │   ├── FilterDropdowns/
+│   │   ├── ProgressBar/
+│   │   ├── SavedItemControls/
+│   │   ├── SearchBar/
+│   │   └── SearchFacets/
+│   │
+│   ├── organisms/
+│   │   ├── IntelligentSearchBar/
+│   │   └── ScrollContainer/
+│   │
+│   └── templates/
+│       ├── AuthLayout/
+│       ├── DetailLayout/
+│       ├── ListingLayout/
+│       └── PlaygroundLayout/
+│
+├── features/
+│   ├── LiveTicker/
+│   ├── MetricHub/
+│   ├── creator-portal/
+│   ├── LiveCategoryRanking/
+│   ├── model-discovery/
+│   ├── model-playground/
+│   └── saved-models/
+│
