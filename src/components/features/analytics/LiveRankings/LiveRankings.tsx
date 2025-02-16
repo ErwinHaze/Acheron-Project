@@ -1,21 +1,46 @@
+import { component$, useVisibleTask$, useSignal } from '@builder.io/qwik';
+import { createClient } from '@supabase/supabase-js';
+import { ReputationScore } from '~/components/ui/reputationScore/ReputationScore';
+
 // components/features/analytics/LiveRanking.tsx
-export const LiveRanking = component$(({ labs, timeRange }) => {
+interface LiveRankingsProps {
+  labs: Lab[];
+  timeRange: string;
+}
+
+interface Lab {
+  id: string;
+  avatar_url: string;
+  name: string;
+  trending_score: number;
+  models_count: number;
+  reputation: number;
+}
+
+export const LiveRankings = component$((props: LiveRankingsProps) => {
+    const { labs, timeRange } = props;
     const supabase = createClient();
+    const labsSignal = useSignal(labs);
   
     useVisibleTask$(({ cleanup }) => {
+      
+      interface SupabasePayload {
+        new: Lab;
+      }
+      
       const channel = supabase
         .channel('lab_rankings')
         .on('postgres_changes', {
           event: 'UPDATE',
           schema: 'public',
           table: 'ai_labs'
-        }, (payload) => {
-          const index = labs.value.findIndex(l => l.id === payload.new.id);
+        }, (payload: SupabasePayload) => {
+          const index = labsSignal.value.findIndex(l => l.id === payload.new.id);
           if (index > -1) {
-            labs.value = [
-              ...labs.value.slice(0, index),
+            labsSignal.value = [
+              ...labsSignal.value.slice(0, index),
               payload.new,
-              ...labs.value.slice(index + 1)
+              ...labsSignal.value.slice(index + 1)
             ];
           }
         })
@@ -26,7 +51,7 @@ export const LiveRanking = component$(({ labs, timeRange }) => {
   
     return (
       <div class="space-y-4">
-        {labs.value.map((lab, index) => (
+        {labsSignal.value.map((lab, index) => (
           <div key={lab.id} class="flex items-center gap-4 p-4 bg-dark-700 rounded-lg">
             <span class="text-xl font-bold w-8">#{index + 1}</span>
             <img 
