@@ -1,9 +1,9 @@
 import { component$, useStore, useResource$, Resource, $ } from '@builder.io/qwik';
-import { Footer } from '~/components/Footer/Footer';
-import { Header } from '~/components/header/header';
-import { ModelSelector } from '~/components/playaround/model-selector/model-selector';
-import { PlayaroundOptions } from '~/components/playaround/playaround-options/playaround-options';
-import { PlayaroundOutput } from '~/components/playaround/playaround-output/playaround-output';
+import { Header } from '~/components/organisms/Header/Header';
+import { Footer } from '~/components/organisms/Footer/Footer';
+import { PlayaroundOptions } from '~/components/templates/PlaygroundLayout/playaround-options/playaround-options';
+import { PlayaroundOutput } from '~/components/templates/PlaygroundLayout/playaround-output/playaround-output';
+import { ModelSelector } from '~/components/features/model-playground/Selector/ModelSelector';
 
 export default component$(() => {
   // State store for customization options
@@ -67,8 +67,8 @@ export default component$(() => {
           onRejected={(error) => <p>Error: {error.message}</p>}
           onResolved={(models: Array<string>) => (
             <ModelSelector
-              models={models}
-              store={store}
+              models={models.map(model => ({ id: model, name: model }))}
+              onSelect$={(model: string) => store.selectedModel = model}
             />
           )}
         />
