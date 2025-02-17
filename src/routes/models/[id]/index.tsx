@@ -15,7 +15,7 @@ interface ModelData {
 
 export default component$(() => {
   const location = useLocation();
-  const modelId = location.params.modelId;
+  const modelId = location.params.id;
 
   // Mock data fetching
   const modelData = useResource$<ModelData>(async () => {
