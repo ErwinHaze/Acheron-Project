@@ -1,6 +1,8 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { createClient } from '@supabase/supabase-js';
-import { DominanceChart, LiveCategoryRanking, CategoryBadges, MetricHub } from '~/components/features/analytics';
+import { DominanceChart } from '~/components/molecules/DominanceChart/DominanceChart';
+import { CategoryBadge as CategoryBadges } from '~/components/molecules/Badge/CategoryBadge';
+import { MetricHub } from '~/components/features/analytics/MetricHub/MetricHub';
 
 // Added type definition for CategoryMetric
 interface CategoryMetric {
@@ -9,6 +11,32 @@ interface CategoryMetric {
 	dominance: number;
 	// ...other properties as needed
 }
+
+// Added type definition for CategoryBadgeProps
+interface CategoryBadgeProps {
+  category: CategoryMetric[];
+  title: string;
+}
+
+// Inline LiveCategoryRanking component
+const LiveCategoryRanking = component$((props: { categories: CategoryMetric[]; timeRange: string; onRangeChange$: (r: string) => void }) => {
+  return (
+    <div>
+      <select value={props.timeRange} onInput$={(e) => props.onRangeChange$((e.target as HTMLSelectElement).value)}>
+        <option value="7d">Last 7 Days</option>
+        <option value="30d">Last 30 Days</option>
+        {/* ...any additional ranges... */}
+      </select>
+      <ul>
+        {props.categories.map((cat) => (
+          <li key={cat.id}>
+            {cat.name}: {cat.dominance}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+});
 
 export default component$(() => {
   const supabase = createClient(
@@ -59,12 +87,12 @@ export default component$(() => {
             />
             <DominanceChart 
               data={leaderboardData.value}
-              class="mt-8 h-96"
+              class-name="mt-8 h-96"
             />
           </div>
           <div class="lg:col-span-1">
-            <CategoryBadges 
-              categories={leaderboardData.value.slice(0, 5)}
+            <CategoryBadges
+              category={leaderboardData.value.slice(0, 5)}
               title="Dominant Categories"
             />
             <div class="mt-8">
