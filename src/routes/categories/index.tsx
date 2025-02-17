@@ -1,6 +1,6 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { createClient } from '@supabase/supabase-js';
-import { CategoryCard, CategoriesFilter, MarketOverview, SortableCategoriesTable } from '~/components/features/model-discovery';
+import { SortableCategoriesTable } from '~/components/organisms/SortableCategoriesTable/SortableCategoriesTable';
 
 // Added type definition for Category
 interface Category {
@@ -14,6 +14,46 @@ interface Category {
 	icon_url: string;
 	domain?: string;
 }
+
+// Moved CategoryCard component
+const CategoryCard = component$(({ category }: { category: Category }) => {
+  return (
+    <div class="category-card">
+      <img src={category.icon_url} alt={category.name} />
+      <h3>{category.name}</h3>
+      <p>{category.model_count} models</p>
+      <p>Top model: {category.top_model}</p>
+    </div>
+  );
+});
+
+// Moved CategoriesFilter component
+const CategoriesFilter = component$(({ currentFilter, onFilter$ }: { currentFilter: string, onFilter$: (filter: string) => void }) => {
+  const filters = ['all', 'domain1', 'domain2']; // Example filters
+  return (
+    <div class="categories-filter">
+      {filters.map(filter => (
+        <button
+          key={filter}
+          class={currentFilter === filter ? 'active' : ''}
+          onClick$={() => onFilter$(filter)}
+        >
+          {filter}
+        </button>
+      ))}
+    </div>
+  );
+});
+
+// Moved MarketOverview component
+const MarketOverview = component$(() => {
+  return (
+    <div class="market-overview">
+      <h2>Market Overview</h2>
+      <p>Some market overview content...</p>
+    </div>
+  );
+});
 
 export default component$(() => {
   const supabase = createClient(

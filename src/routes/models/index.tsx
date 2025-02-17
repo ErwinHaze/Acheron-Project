@@ -1,8 +1,8 @@
 import { component$, useSignal, useTask$ } from '@builder.io/qwik';
-import SearchBar from '~/components/molecules/SearchBar/SearchBar';
-import FilterDropdowns from '~/components/molecules/FilterDropdowns/FilterDropdowns';
-import ModelGrid from '~/components/organisms/ModelGrid/ModelGrid';
-import { fetchModels } from '~/api/models';
+import { SearchBar } from '~/components/molecules/SearchBar/SearchBar';
+import { fetchModels } from '~/routes/api/models';
+import { FilterDropdowns } from '~/components/molecules/FilterDropdowns/FilterDropdowns';
+import { ModelGrid } from '~/components/molecules/ModelGrid/ModelGrid';
 
 export default component$(() => {
   const models = useSignal([]);
@@ -20,12 +20,12 @@ export default component$(() => {
   });
 
   return (
-    <div class="models-page">
+    <div class="container mx-auto px-4 py-8">
       {/* Search Bar */}
-      <SearchBar placeholder="Search AI Models..." />
+      <SearchBar class="mb-4" placeholder="Search AI Models..." />
 
       {/* Filters */}
-      <div class="filters-section">
+      <div class="mb-6">
         <FilterDropdowns
           useCase={filters.value.useCase}
           performanceMetric={filters.value.performanceMetric}
