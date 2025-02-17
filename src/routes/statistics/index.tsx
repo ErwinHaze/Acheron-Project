@@ -1,9 +1,48 @@
 // src/routes/statistics/index.tsx
 import { component$, useResource$, Resource, useSignal, $ } from '@builder.io/qwik';
-import { StatsGrid } from '~/components/stats/stats-grid';
-import { TrendingModels } from '~/components/stats/trending-models';
-import { Header } from '~/components/header/header';
-import { Footer } from '~/components/Footer/Footer';
+import { Header } from '~/components/organisms/Header/Header';
+import { Footer } from '~/components/organisms/Footer/Footer';
+
+// StatsGrid component defined inline
+const StatsGrid = component$(({ stats }: { stats: { title: string; value: number }[] }) => {
+  return (
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {stats.map((stat, idx) => (
+        <div key={idx} class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold mb-2">{stat.title}</h3>
+          <p class="text-3xl font-bold text-blue-600">{stat.value}</p>
+        </div>
+      ))}
+    </div>
+  );
+});
+
+// TrendingModels component defined inline
+const TrendingModels = component$(({ models }: { models: { id: number; name: string; usageCount: number }[] }) => {
+  return (
+    <div class="mt-8">
+      <h2 class="text-2xl font-bold mb-4">Trending Models</h2>
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <table class="w-full">
+          <thead>
+            <tr class="bg-gray-50">
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Model Name</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Usage Count</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            {models.map((model) => (
+              <tr key={model.id}>
+                <td class="px-6 py-4 whitespace-nowrap">{model.name}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{model.usageCount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+});
 
 export default component$(() => {
   // State to control the display mode
