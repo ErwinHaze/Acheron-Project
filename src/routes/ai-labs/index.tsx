@@ -1,6 +1,52 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { createClient } from '@supabase/supabase-js';
-import { LabCard, LabsFilter, LabsStats, SortableLabsTable } from '~/components/features/ai-labs';
+// Removed import for LabCard, LabsFilter, LabsStats, SortableLabsTable
+
+// Inline component definitions
+
+export const LabCard = component$(({ lab }: { lab: Lab }) => {
+  return <div class="lab-card">{lab.name}</div>;
+});
+
+export const LabsFilter = component$(
+  ({ currentFilter, onFilter$ }: { currentFilter: string; onFilter$: (f: string) => void }) => {
+    return (
+      <div class="labs-filter">
+        <button onClick$={() => onFilter$('all')} class={currentFilter === 'all' ? 'active' : ''}>
+          All
+        </button>
+        {/* ...other filter options... */}
+      </div>
+    );
+  }
+);
+
+export const LabsStats = component$(() => {
+  return <div class="labs-stats">Labs Stats</div>;
+});
+
+export const SortableLabsTable = component$(
+  ({ labs, sortBy, onSort$ }: { labs: Lab[]; sortBy: string; onSort$: (s: string) => void }) => {
+    return (
+      <table class="sortable-labs-table">
+        <thead>
+          <tr>
+            <th onClick$={() => onSort$('reputation')}>Reputation</th>
+            {/* ...other table headers... */}
+          </tr>
+        </thead>
+        <tbody>
+          {labs.map(lab => (
+            <tr key={lab.id}>
+              <td>{lab.name}</td>
+              {/* ...other lab details... */}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+);
 
 interface Lab {
   id: number;
@@ -13,6 +59,7 @@ interface Lab {
   avatar_url: string;
   trending_score: number;
 }
+
 export default component$(() => {
   const supabase = createClient(
     import.meta.env.PUBLIC_SUPABASE_URL,

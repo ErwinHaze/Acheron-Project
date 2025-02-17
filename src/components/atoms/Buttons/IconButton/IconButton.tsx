@@ -1,6 +1,5 @@
 // src/components/atoms/IconButton/IconButton.tsx
-import { component$ } from '@builder.io/qwik';
-import { JSX } from '@builder.io/qwik/jsx-runtime';
+import { component$, JSX } from '@builder.io/qwik';
 
 interface IconButtonProps {
   icon: JSX.Element;
