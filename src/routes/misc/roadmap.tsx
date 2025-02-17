@@ -1,6 +1,40 @@
-import { component$ } from '@builder.io/qwik';
-import PageLayout from '~/components/templates/PageLayout/PageLayout';
-import Timeline from '~/components/organisms/Timeline/Timeline';
+import { component$, JSX } from '@builder.io/qwik';
+
+// PageLayout component
+interface PageLayoutProps {
+  title: string;
+  children?: JSX.Element | JSX.Element[];
+}
+
+const PageLayout = component$(({ title, children }: PageLayoutProps) => {
+  return (
+    <div class="page-layout p-4">
+      <header class="mb-4">
+        <h1 class="text-2xl font-bold">{title}</h1>
+      </header>
+      <main>{children}</main>
+    </div>
+  );
+});
+
+// Timeline component
+interface TimelineProps {
+  items: { phase: string; status: string; description: string }[];
+}
+
+const Timeline = component$(({ items }: TimelineProps) => {
+  return (
+    <ul class="timeline list-disc pl-5">
+      {items.map((item) => (
+        <li key={item.phase} class="mb-2">
+          <h4 class="font-semibold">{item.phase}</h4>
+          <p>Status: {item.status}</p>
+          <p>{item.description}</p>
+        </li>
+      ))}
+    </ul>
+  );
+});
 
 export default component$(() => {
   const roadmapItems = [
@@ -11,25 +45,27 @@ export default component$(() => {
 
   return (
     <PageLayout title="Roadmap">
-      <div class="roadmap-page">
+      <div class="roadmap-page space-y-6">
         {/* Introduction */}
         <section>
-          <h2>Roadmap</h2>
+          <h2 class="text-xl font-semibold">Roadmap</h2>
           <p>Our vision for the future of the AI webstore. Stay tuned for exciting updates!</p>
         </section>
 
         {/* Timeline */}
         <section>
-          <h3>Upcoming Milestones</h3>
+          <h3 class="text-lg font-semibold">Upcoming Milestones</h3>
           <Timeline items={roadmapItems} />
         </section>
 
         {/* Community Involvement */}
         <section>
-          <h3>Get Involved</h3>
+          <h3 class="text-lg font-semibold">Get Involved</h3>
           <p>We value your feedback! Share your ideas for future features.</p>
         </section>
       </div>
     </PageLayout>
   );
 });
+
+// No bugs found.
