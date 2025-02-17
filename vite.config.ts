@@ -28,6 +28,11 @@ export default defineConfig(({ command, mode }): UserConfig => {
       // For example ['better-sqlite3'] if you use that in server functions.
       exclude: [],
     },
+    build: {
+      cssCodeSplit: true,
+      sourcemap: true,
+      minify: 'terser',
+    },
 
     /**
      * This is an advanced setting. It improves the bundling of your server code. To use it, make sure you understand when your consumed packages are dependencies or dev dependencies. (otherwise things will break in production)
@@ -48,9 +53,8 @@ export default defineConfig(({ command, mode }): UserConfig => {
 
     server: {
       headers: {
-        // Don't cache the server response in dev mode
-        "Cache-Control": "public, max-age=0",
-      },
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      }
     },
     preview: {
       headers: {

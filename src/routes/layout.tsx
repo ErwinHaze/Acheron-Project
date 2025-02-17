@@ -7,7 +7,7 @@ import { component$, Slot } from '@builder.io/qwik';
  */
 export const Layout = component$(() => {
   return (
-    <html lang="en">
+    <div class="layout">
       <head>
         <title>AI Model Store</title>
         <meta charSet="utf-8" />
@@ -35,7 +35,7 @@ export const Layout = component$(() => {
           </div>
         </footer>
       </body>
-    </html>
+    </div>
   );
 });
 

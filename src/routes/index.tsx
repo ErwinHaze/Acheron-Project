@@ -10,59 +10,40 @@ import { CategoryGrid } from '~/components/organisms/CategoryGrid/CategoryGrid';
 import { EditorsChoiceGrid } from '~/components/features/model-discovery/EditorsChoice/EditorsChoiceGrid';
 import { TrendingModelsList } from '~/components/organisms/TrendingModels/TrendingModelsList';
 import { StatsBlock } from '~/components/organisms/StatsBlock/StatsBlock';
-import { supabaseClient } from '~/supabase/client'; // your supabase config
+//import { supabaseClient } from '~/supabase/client'; // your supabase config
 import type { StatsItem } from '~/components/organisms/StatsBlock/StatsBlock';
-import type { Model } from '~/routes/models/[modelId]'; // or your own model interface
-import type { Category } from '~/routes/categories/[categoryId]';
+import Model from '~/routes/models/[modelId]'; // or your own model interface
+import type { Category } from '~/types/category';
 
 export default component$(() => {
   // Local store for home data
   const store = useStore({
     categories: [] as Category[],
-    trendingModels: [] as Model[],
-    editorsChoice: [] as Model[],
+    trendingModels: [] as Array<{ id: string; name: string }>,
+    editorsChoice: [] as Array<{ id: string; name: string }>,
     stats: [] as StatsItem[],
     loading: false,
     error: null as string | null,
   });
 
-  // 1. Resource to fetch homepage data from Supabase
-  //    (categories, trending, editors choice, some stats)
+  // Activated Resource to fetch homepage data with sample data
   const homeDataResource = useResource$(async () => {
     store.loading = true;
     store.error = null;
-
     try {
-      // Example Supabase queries: categories, trending models, etc.
-      const { data: catData } = await supabaseClient
-        .from('categories')
-        .select('*')
-        .limit(6);
-
-      const { data: trendingData } = await supabaseClient
-        .from('models')
-        .select('*')
-        .eq('isTrending', true)
-        .limit(5);
-
-      const { data: editorsData } = await supabaseClient
-        .from('models')
-        .select('*')
-        .eq('editorsChoice', true)
-        .limit(4);
-
-      // Example stats
+      // Simulate an API call delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Sample stats data
       const stats: StatsItem[] = [
         { label: 'Total Models', value: 1284 },
         { label: 'Total Labs', value: 42 },
         { label: 'Users Online', value: 321 },
         { label: 'Top Category', value: 'NLP' },
       ];
-
       return {
-        categories: catData || [],
-        trendingModels: trendingData || [],
-        editorsChoice: editorsData || [],
+        categories: [],
+        trendingModels: [],
+        editorsChoice: [],
         stats,
       };
     } catch (err: any) {

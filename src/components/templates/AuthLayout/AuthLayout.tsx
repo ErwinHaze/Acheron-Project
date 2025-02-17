@@ -1,22 +1,21 @@
 // components/templates/AuthLayout/AuthLayout.tsx
-import { component$ } from '@builder.io/qwik';
+import { component$, Slot } from '@builder.io/qwik';
 
 interface AuthLayoutProps {
-  title: any;
-  children: any;
+  title: string;
 }
 
-export default component$<AuthLayoutProps>(({ title, children }) => {
+export default component$<AuthLayoutProps>(({ title }) => {
   return (
-    <div class="auth-layout">
-      <header>
-        <h1>{title}</h1>
+    <div class="auth-layout min-h-screen flex flex-col justify-between p-4">
+      <header class="mb-4">
+        <h1 class="text-xl font-bold text-center">{title}</h1>
       </header>
-      <main>
-        {children}
+      <main class="flex-1">
+        <Slot />
       </main>
-      <footer>
-        <p>&copy; 2023 AI Model Store. All rights reserved.</p>
+      <footer class="mt-4 text-center text-sm text-gray-500">
+        &copy; 2025 AI Model Store. All rights reserved.
       </footer>
     </div>
   );

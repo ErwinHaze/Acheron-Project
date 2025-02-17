@@ -2,6 +2,17 @@ import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { createClient } from '@supabase/supabase-js';
 import { LabCard, LabsFilter, LabsStats, SortableLabsTable } from '~/components/features/ai-labs';
 
+interface Lab {
+  id: number;
+  name: string;
+  reputation: number;
+  models_count: number;
+  papers_count: number;
+  funding: number;
+  location: string;
+  avatar_url: string;
+  trending_score: number;
+}
 export default component$(() => {
   const supabase = createClient(
     import.meta.env.PUBLIC_SUPABASE_URL,

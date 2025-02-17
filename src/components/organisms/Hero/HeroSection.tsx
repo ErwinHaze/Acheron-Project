@@ -1,20 +1,20 @@
 import { component$ } from '@builder.io/qwik';
 
-export const Hero = component$(() => {
+export const HeroSection = component$(() => {
   return (
     <section class="relative h-[400px] flex items-center justify-center bg-black overflow-hidden">
       {/* Background Video or Image */}
-      <video
-        autoplay
-        muted
-        loop
-        class="absolute w-full h-full object-cover opacity-50"
-        preload="none"
-      >
+      <video autoplay muted loop class="absolute w-full h-full object-cover opacity-50">
         <source src="../public/bg-motion.mp4" type="video/mp4" />
         <source src="../public/bg-motion.webm" type="video/webm" />
-        <img src="../public/bg-fallback.jpg" alt="Background" class="absolute w-full h-full object-cover opacity-50" />
-        Your browser does not support the video tag.
+        <img
+          src="../public/bg-fallback.jpg"
+          alt="Background"
+          class="absolute w-full h-full object-cover opacity-50"
+          width="1920"
+          height="1080"
+          loading="lazy"
+        />
       </video>
 
       {/* Content */}

@@ -1,9 +1,9 @@
 root/$$$
-├── ai-labs/$
-├── api/$
-├── auth/$
-├── categories/$
-├── dashboard/$
+├── ai-labs/$ index.tsx & leaderboard.tsx need backend fix (supabase)
+├── api/$ models.ts & dashboard.ts need backend fix (supabase)
+├── auth/$ 
+├── categories/$ leaderboard- and index.tsx need backend fix (supabase) 
+├── dashboard/$ 
 ├── misc/$
 ├── models/$
 ├── playground/$
