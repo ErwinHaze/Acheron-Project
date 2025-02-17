@@ -1,5 +1,4 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
-import { createClient } from '@supabase/supabase-js';
 import { 
   IntelligentSearchBar, 
   SearchResultsGrid,
