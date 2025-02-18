@@ -66,4 +66,4 @@ mappings.forEach(({ old, new: newPath }) => moveComponent(old, newPath));
 console.log('Updating import paths...');
 updateImports(path.join(__dirname, 'src'));
 
-console.log('Migration complete! 🎉');
+console.log('Migration complete!');

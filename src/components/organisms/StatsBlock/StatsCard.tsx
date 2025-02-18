@@ -6,9 +6,9 @@ export const StatsCard = component$((props: {
   value: string | number;
 }) => {
   return (
-    <div class="border p-4 rounded text-center">
-      <p class="text-sm text-gray-500">{props.label}</p>
-      <p class="text-xl font-bold">{props.value}</p>
+    <div class="border p-4 rounded-full bg-black text-center border-none">
+      <p class="text-sm text-white ">{props.label}</p>
+      <p class="text-xl text-white font-bold">{props.value}</p>
     </div>
   );
 });
