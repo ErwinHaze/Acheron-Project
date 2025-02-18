@@ -6,10 +6,10 @@ import { MetricHub } from '~/components/features/analytics/MetricHub/MetricHub';
 
 // Added type definition for CategoryMetric
 interface CategoryMetric {
-	id: number;
-	name: string;
-	dominance: number;
-	// ...other properties as needed
+  id: number;
+  name: string;
+  dominance: number;
+  // ...other properties as needed
 }
 
 // Added type definition for CategoryBadgeProps
@@ -80,20 +80,26 @@ export default component$(() => {
         <div class="grid gap-6 lg:grid-cols-3">
           <div class="lg:col-span-2">
             <h1 class="text-3xl font-bold mb-6">AI Category Dominance Ranking</h1>
-            <LiveCategoryRanking 
+            <LiveCategoryRanking
               categories={leaderboardData.value}
               timeRange={timeRange.value}
               onRangeChange$={(r) => timeRange.value = r}
             />
-            <DominanceChart 
-              data={leaderboardData.value}
+            <DominanceChart
+              data={{
+                labels: leaderboardData.value.map((category) => category.name),
+                datasets: [{
+                  label: 'Dominance',
+                  data: leaderboardData.value.map((category) => category.dominance),
+                }],
+              }}
               class-name="mt-8 h-96"
             />
           </div>
           <div class="lg:col-span-1">
             <CategoryBadges
-              category={leaderboardData.value.slice(0, 5)}
-              title="Dominant Categories"
+              category={leaderboardData.value.filter((cat) => cat.dominance > 50).slice(0, 5)}
+              title="Top 5 Dominant Categories"
             />
             <div class="mt-8">
               <h3 class="text-xl font-semibold mb-4">Market Metrics</h3>
