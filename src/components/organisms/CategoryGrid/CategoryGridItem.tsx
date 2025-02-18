@@ -7,9 +7,9 @@ export const CategoryGridItem = component$((props: {
   totalModels: number;
 }) => {
   return (
-    <div class="border rounded p-4 hover:shadow transition">
-      <h3 class="font-bold">{props.name}</h3>
-      <p class="text-sm text-gray-600">{props.totalModels} models</p>
+    <div class="border border-gray-700 rounded-lg p-6 bg-gray-800 hover:bg-gray-700 transform hover:scale-105 transition-all duration-300 cursor-pointer">
+      <h3 class="text-xl font-semibold text-white mb-2">{props.name}</h3>
+      <p class="text-sm text-gray-400">{props.totalModels} models</p>
     </div>
   );
 });

@@ -1,4 +1,3 @@
-// FILE: src/routes/index.tsx
 import {
   component$,
   useStore,
@@ -9,18 +8,31 @@ import { HeroSection } from '~/components/organisms/Hero/HeroSection';
 import { CategoryGrid } from '~/components/organisms/CategoryGrid/CategoryGrid';
 import { EditorsChoiceGrid } from '~/components/features/model-discovery/EditorsChoice/EditorsChoiceGrid';
 import { TrendingModelsList } from '~/components/organisms/TrendingModels/TrendingModelsList';
+import { FeaturedModelsList } from '~/components/organisms/FeaturedModels/FeaturedModelsList';
 import { StatsBlock } from '~/components/organisms/StatsBlock/StatsBlock';
 //import { supabaseClient } from '~/supabase/client'; // your supabase config
 import type { StatsItem } from '~/components/organisms/StatsBlock/StatsBlock';
-import Model from '~/routes/models/[modelId]'; // or your own model interface
 import type { Category } from '~/types/category';
+
+const FEATUREDMODEL = [
+  { id: '1', rank: 1, modelName: 'Llama 2 70B', performanceChange: '+15.2%' },
+  { id: '2', rank: 2, modelName: 'DALL-E 3', performanceChange: '+10.8%' },
+  { id: '3', rank: 3, modelName: 'FLUX 1L', performanceChange: '+5.8%' },
+];
+
+const TRENDINGMODEL = [
+  { id: '1', name: 'ChatGPT-4o', direction: 'up' }, 
+  { id: '2', name: 'DeepSeek R1', direction: 'down' },   
+  { id: '3', name: 'Claude Sonnet', direction: 'down' },   
+];
 
 export default component$(() => {
   // Local store for home data
   const store = useStore({
     categories: [] as Category[],
-    trendingModels: [] as Array<{ id: string; name: string }>,
-    editorsChoice: [] as Array<{ id: string; name: string }>,
+    trendingModels: TRENDINGMODEL, // ✅ Now initialized
+    featuredModels: FEATUREDMODEL, // ✅ Now initialized
+    editorsChoice: [],
     stats: [] as StatsItem[],
     loading: false,
     error: null as string | null,
@@ -42,8 +54,6 @@ export default component$(() => {
       ];
       return {
         categories: [],
-        trendingModels: [],
-        editorsChoice: [],
         stats,
       };
     } catch (err: any) {
@@ -55,7 +65,7 @@ export default component$(() => {
   });
 
   return (
-    <div class="min-h-screen flex flex-col">
+    <div class="min-h-screen flex flex-col bg-dark text-light">
       <Resource
         value={homeDataResource}
         onPending={() => <p class="m-4">Loading homepage data...</p>}
@@ -66,48 +76,40 @@ export default component$(() => {
           }
 
           store.categories = res.categories;
-          store.trendingModels = res.trendingModels;
-          store.editorsChoice = res.editorsChoice;
           store.stats = res.stats;
 
           return (
             <div>
-              {/* Hero / Banner */}
               <HeroSection />
+              <div class="container mx-auto py-6 overflow-x-auto"> 
+              {/* 🔥 Trending Models Section */}
+              <div class="mx-auto py-6 overflow-x-auto">
+                <h2 class="text-2xl font-bold mb-4">Trending AI Models</h2>
+                <TrendingModelsList items={store.trendingModels} />
+              </div>
 
-              {/* Stats Block (like CMC’s “Global Crypto Market Cap” section) */}
+              {/* 🌟 Featured Models Section */}
+              <div class=" mx-auto py-6">
+                <h2 class="text-2xl font-bold mb-4">Featured Models</h2>
+                <FeaturedModelsList />
+              </div>
+              </div> 
+
+              {/* 📊 Stats Block */}
               <div class="container mx-auto py-6">
                 <StatsBlock stats={store.stats} />
               </div>
 
-              {/* Category Grid (CoinMarketCap-like categories) */}
-              <div class="container mx-auto py-6">
-                <h2 class="text-2xl font-bold mb-4">Explore Categories</h2>
-                <CategoryGrid
-                  categories={store.categories.map((cat) => ({
-                    id: cat.id,
-                    name: cat.name,
-                    totalModels: cat.models?.length || 0,
-                  }))}
-                />
-              </div>
-
-              {/* Editors Choice / Featured Models */}
+              {/* 🏆 Editors’ Choice */}
               <div class="container mx-auto py-6">
                 <h2 class="text-2xl font-bold mb-4">Editors’ Choice</h2>
-                <EditorsChoiceGrid models={store.editorsChoice} />
+                <EditorsChoiceGrid />
               </div>
 
-              {/* Trending Models (similar to trending cryptos on CMC) */}
+              {/* 🎭 Categories */}
               <div class="container mx-auto py-6">
-                <h2 class="text-2xl font-bold mb-4">Trending AI Models</h2>
-                <TrendingModelsList
-                  items={store.trendingModels.map((m) => ({
-                    id: m.id,
-                    name: m.name,
-                    direction: 'up', // or 'down' based on your data
-                  }))}
-                />
+                <h2 class="text-2xl font-bold mb-4">Explore Categories</h2>
+                <CategoryGrid />
               </div>
             </div>
           );

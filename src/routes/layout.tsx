@@ -1,18 +1,13 @@
 import { component$, Slot } from '@builder.io/qwik';
-
+import { Header } from '~/components/organisms/Header/Header';
 /**
  * Example placeholders for a top-level Header and Footer component.
  * Replace them with your actual Qwik header/footer once created.
  */
 export const Layout = component$(() => {
   return (
-    <div class="layout">
-      {/* Top-level site header */}
-      <header class="bg-white border-b">
-        <div class="container mx-auto px-4 py-2">
-          <h1 class="text-xl font-bold">AI Model Store</h1>
-        </div>
-      </header>
+    <div>
+    <Header />
 
       {/* Main content area */}
       <main class="flex-1 container mx-auto px-4 py-6">
