@@ -30,7 +30,7 @@ export default component$(() => {
       return;
     }
 
-    try {
+    try {}
       isLoading.value = true;
       error.value = null;
       

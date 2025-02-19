@@ -21,9 +21,9 @@ const FEATUREDMODEL = [
 ];
 
 const TRENDINGMODEL = [
-  { id: '1', name: 'ChatGPT-4o', direction: 'up' }, 
-  { id: '2', name: 'DeepSeek R1', direction: 'down' },   
-  { id: '3', name: 'Claude Sonnet', direction: 'down' },   
+  { id: '1', name: 'ChatGPT-4o', direction: 'up' },
+  { id: '2', name: 'DeepSeek R1', direction: 'down' },
+  { id: '3', name: 'Claude Sonnet', direction: 'down' },
 ];
 
 export default component$(() => {
@@ -81,19 +81,19 @@ export default component$(() => {
           return (
             <div>
               <HeroSection />
-              <div class="container mx-auto py-6 overflow-x-auto"> 
-              {/* 🔥 Trending Models Section */}
-              <div class="mx-auto py-6 overflow-x-auto">
-                <h2 class="text-2xl font-bold mb-4">Trending AI Models</h2>
-                <TrendingModelsList items={store.trendingModels} />
-              </div>
+              <div class="container mx-auto py-6 overflow-x-auto">
+                {/* 🔥 Trending Models Section */}
+                <div class="mx-auto py-6 overflow-x-auto">
+                  <h2 class="text-2xl font-bold mb-4">Trending AI Models</h2>
+                  <TrendingModelsList items={store.trendingModels} />
+                </div>
 
-              {/* 🌟 Featured Models Section */}
-              <div class=" mx-auto py-6">
-                <h2 class="text-2xl font-bold mb-4">Featured Models</h2>
-                <FeaturedModelsList />
+                {/* 🌟 Featured Models Section */}
+                <div class=" mx-auto py-6">
+                  <h2 class="text-2xl font-bold mb-4">Featured Models</h2>
+                  <FeaturedModelsList />
+                </div>
               </div>
-              </div> 
 
               {/* 📊 Stats Block */}
               <div class="container mx-auto py-6">

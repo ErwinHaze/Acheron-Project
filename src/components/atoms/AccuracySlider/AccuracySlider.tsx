@@ -1,5 +1,5 @@
 // src/components/atoms/AccuracySlider/AccuracySlider.tsx
-import { component$, useSignal, useTask$ } from '@builder.io/qwik';
+import { component$, useSignal, useTask$, $ } from '@builder.io/qwik';
 
 interface AccuracySliderProps {
   value: number;
