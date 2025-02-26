@@ -1,8 +1,6 @@
 // src/components/features/UIFeature.tsx
 import { component$, useSignal, useStore, useVisibleTask$ } from '@builder.io/qwik';
-import { useVirtualizer } from '@builder.io/qwik-virtualizer';
 import { createClient } from '@supabase/supabase-js';
-import { Category } from '~/backend/categories';
 
 interface UIFeatureProps {
   type:
@@ -19,11 +17,11 @@ interface UIFeatureProps {
     | 'presets'
     | 'model-selector'
     | 'sidebar';
-  data?: any[] | { creatorName?: string; bio?: string; modelId?: string }; // Generic data prop
-  timeRange?: string; // For rankings
-  step?: number; // For upload-wizard
-  onChange$?: (value: string) => void; // For filters/selector
-  onSelect$?: (item: any) => void; // For sidebar/comparator
+  data?: any[] | { creatorName?: string; bio?: string; modelId?: string };
+  timeRange?: string;
+  step?: number;
+  onChange$?: (value: string) => void;
+  onSelect$?: (item: any) => void;
 }
 
 // Type definitions
@@ -64,7 +62,6 @@ export const UIFeature = component$<UIFeatureProps>(({
     import.meta.env.PUBLIC_SUPABASE_KEY
   );
   const items = useSignal<any[]>(Array.isArray(data) ? data : []);
-  // Use an explicit type for expanded so we can index with 'myModels' | 'explore'
   const state = useStore({ 
     selected: [] as any[], 
     step, 
@@ -72,16 +69,17 @@ export const UIFeature = component$<UIFeatureProps>(({
   });
   const parentRef = useSignal<Element>();
 
-  // Virtualizer for virtual-results
-  const virtualizer =
+  // Fallback virtualizer implementation if '@builder.io/qwik-virtualizer' isn't available
+  const virtualItems = useSignal(
     type === 'virtual-results' && items.value.length
-      ? useVirtualizer({
-          count: items.value.length,
-          getScrollElement: () => parentRef.value,
-          estimateSize: () => 80,
-          overscan: 5,
-        })
-      : null;
+      ? items.value.map((_, index) => ({
+          key: index,
+          size: 80,
+          start: index * 80,
+          index
+        }))
+      : []
+  );
 
   // Real-time updates for rankings
   useVisibleTask$(({ cleanup }) => {
@@ -130,7 +128,7 @@ export const UIFeature = component$<UIFeatureProps>(({
     );
   });
 
-  // Filter (combined LabsFilter and CategoriesFilter)
+  // Filter
   const Filter = component$(
     ({ currentFilter, onFilter$ }: { currentFilter: string; onFilter$: (f: string) => void }) => {
       const filters = ['all', 'domain1', 'domain2'];
@@ -261,10 +259,10 @@ export const UIFeature = component$<UIFeatureProps>(({
         </div>
       )}
 
-      {type === 'virtual-results' && virtualizer && (
+      {type === 'virtual-results' && (
         <div ref={parentRef} class="h-[400px] overflow-auto">
-          <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
-            {virtualizer.getVirtualItems().map((item: { key: string | number | null; size: number; start: number; index: number | string; }) => (
+          <div style={{ height: `${items.value.length * 80}px` }}>
+            {virtualItems.value.map((item) => (
               <div
                 key={item.key}
                 style={{

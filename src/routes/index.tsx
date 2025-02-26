@@ -1,3 +1,4 @@
+// src/routes/index.tsx
 import { component$, useStore, useResource$, Resource } from '@builder.io/qwik';
 import { UITemplate } from '~/components/UITemplates';
 import { UIOrganism } from '~/components/UIOrganism';
@@ -10,9 +11,9 @@ const FEATUREDMODEL = [
 ];
 
 const TRENDINGMODEL = [
-  { id: '1', name: 'ChatGPT-4o', direction: 'up' },
-  { id: '2', name: 'DeepSeek R1', direction: 'down' },
-  { id: '3', name: 'Claude Sonnet', direction: 'down' },
+  { id: '1', rank: 1, modelName: 'ChatGPT-4o', performanceChange: '+12.5%' },
+  { id: '2', rank: 2, modelName: 'DeepSeek R1', performanceChange: '-8.3%' },
+  { id: '3', rank: 3, modelName: 'Claude Sonnet', performanceChange: '-3.1%' },
 ];
 
 export default component$(() => {
@@ -82,7 +83,7 @@ export default component$(() => {
                 <UIOrganism type="stats" data={store.stats} />
               </section>
 
-              {/* Editors' Choice - Using valid leaderboard type */}
+              {/* Editors' Choice */}
               <section class="container mx-auto">
                 <h2 class="text-2xl font-bold mb-4 text-light">
                   Editors’ Choice
@@ -104,3 +105,11 @@ export default component$(() => {
     </UITemplate>
   );
 });
+
+// Define the document head
+export const head = {
+  title: 'AI Model Store - Home',
+  meta: [
+    { name: 'description', content: 'Discover and explore AI models.' },
+  ],
+};

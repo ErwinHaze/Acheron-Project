@@ -1,11 +1,10 @@
 // src/root.tsx
-import { component$, Fragment } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import {
   QwikCityProvider,
   RouterOutlet,
   ServiceWorkerRegister,
 } from '@builder.io/qwik-city';
-import { UIOrganism } from '~/components/UIOrganism';
 import { isDev } from '@builder.io/qwik';
 import './global.css';
 
@@ -21,7 +20,7 @@ export default component$(() => {
             href={`${import.meta.env.BASE_URL}manifest.json`}
           />
         )}
-        <UIOrganism type="router-head" />
+        {/* Removed: <UIOrganism type="router-head" /> */}
       </head>
       <body lang="en" class="bg-gray-50 text-gray-900">
         <RouterOutlet />
