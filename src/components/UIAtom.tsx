@@ -1,30 +1,29 @@
-// src/components/atoms/UIAtom.tsx
 import { component$, Slot, useSignal, useTask$ } from '@builder.io/qwik';
 
 interface UIAtomProps {
-  type: 
-    | 'slider' 
-    | 'range-slider' 
-    | 'button' 
-    | 'fab' 
-    | 'icon-button' 
-    | 'badge' 
-    | 'filter' 
-    | 'facet' 
-    | 'icon' 
-    | 'loader' 
+  type:
+    | 'slider'
+    | 'range-slider'
+    | 'button'
+    | 'fab'
+    | 'icon-button'
+    | 'badge'
+    | 'filter'
+    | 'facet'
+    | 'icon'
+    | 'loader'
     | 'swipeable';
-  value?: string | number | [number, number]; // For slider/range-slider/filter
-  onChange$?: (value: string | number | [number, number]) => void; // For slider/range-slider/filter
-  onClick$?: () => void; // For buttons
-  onDismiss$?: () => void; // For swipeable
-  icon?: 'chevron-down' | 'clock' | 'eye' | 'info' | 'search' | 'sort' | 'trash' | 'trend-up' | 'trend-down' | 'verified'; // For icon/icon-button
-  label?: string; // For button/icon-button/badge
-  category?: string; // For badge/filter
-  min?: number; // For range-slider
-  max?: number; // For range-slider
-  title?: string; // For facet
-  class?: string; // Optional additional classes
+  value?: string | number | [number, number];
+  onChange$?: (value: string | number | [number, number]) => void;
+  onClick$?: () => void;
+  onDismiss$?: () => void;
+  icon?: 'chevron-down' | 'clock' | 'eye' | 'info' | 'search' | 'sort' | 'trash' | 'trend-up' | 'trend-down' | 'verified';
+  label?: string;
+  category?: string;
+  min?: number;
+  max?: number;
+  title?: string;
+  class?: string;
 }
 
 export const UIAtom = component$<UIAtomProps>(({
@@ -41,10 +40,10 @@ export const UIAtom = component$<UIAtomProps>(({
   title,
   class: className = '',
 }) => {
-  const val = useSignal(value); // Single value for slider/filter
-  const touchStart = useSignal(0); // For swipeable
+  const val = useSignal(value);
+  const touchStart = useSignal(0);
 
-  // Sync value changes
+  // Sync value changes for slider, range-slider, filter.
   useTask$(({ track }) => {
     if (type === 'slider' || type === 'range-slider' || type === 'filter') {
       track(() => val.value);
@@ -52,7 +51,7 @@ export const UIAtom = component$<UIAtomProps>(({
     }
   });
 
-  // Badge colors
+  // Badge colors based on category.
   const getBadgeColor = (cat: string = '') => {
     const colors: Record<string, string> = {
       'ML': 'bg-blue-100 text-blue-800',
@@ -64,7 +63,7 @@ export const UIAtom = component$<UIAtomProps>(({
     return colors[cat] || 'bg-gray-100 text-gray-800';
   };
 
-  // Icon SVGs (minimal paths)
+  // Minimal icon SVG paths.
   const icons = {
     'chevron-down': <path d="M6 9l6 6 6-6" />,
     'clock': <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 14v-4H9" />,
@@ -87,18 +86,18 @@ export const UIAtom = component$<UIAtomProps>(({
             min={0}
             max={100}
             value={val.value as number}
-            class="w-full h-1 bg-gray-200 rounded appearance-none"
+            class="w-full h-1 rounded-lg bg-gray-300 accent-blue-500 focus:outline-none transition-colors"
             onChange$={(e) => val.value = parseFloat((e.target as HTMLInputElement).value)}
           />
-          <div class="mt-1 text-xs text-gray-600">{val.value}%</div>
+          <div class="mt-1 text-xs text-gray-600 text-center font-medium">{val.value}%</div>
         </div>
       )}
 
       {type === 'range-slider' && (
         <div class={`relative h-8 ${className}`}>
-          <div class="absolute top-2 w-full h-1 bg-gray-200 rounded">
+          <div class="absolute top-3 w-full h-1 bg-gray-300 rounded-lg">
             <div
-              class="absolute h-1 bg-blue-500 rounded"
+              class="absolute h-1 bg-blue-500 rounded-lg transition-all"
               style={{
                 left: `${((val.value as [number, number])[0] - min) / (max - min) * 100}%`,
                 width: `${(((val.value as [number, number])[1] - (val.value as [number, number])[0]) / (max - min)) * 100}%`,
@@ -110,7 +109,7 @@ export const UIAtom = component$<UIAtomProps>(({
             min={min}
             max={max}
             value={(val.value as [number, number])[0]}
-            class="absolute w-full top-1 h-1 bg-transparent appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500"
+            class="absolute w-full top-1 h-1 bg-transparent appearance-none focus:outline-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500 transition"
             onInput$={(e) => {
               const newMin = Math.min(Number((e.target as HTMLInputElement).value), (val.value as [number, number])[1] - 1);
               val.value = [newMin, (val.value as [number, number])[1]];
@@ -121,13 +120,13 @@ export const UIAtom = component$<UIAtomProps>(({
             min={min}
             max={max}
             value={(val.value as [number, number])[1]}
-            class="absolute w-full top-1 h-1 bg-transparent appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500"
+            class="absolute w-full top-1 h-1 bg-transparent appearance-none focus:outline-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500 transition"
             onInput$={(e) => {
               const newMax = Math.max(Number((e.target as HTMLInputElement).value), (val.value as [number, number])[0] + 1);
               val.value = [(val.value as [number, number])[0], newMax];
             }}
           />
-          <div class="mt-4 flex justify-between text-xs text-gray-600">
+          <div class="mt-4 flex justify-between text-xs text-gray-600 font-medium">
             <span>{(val.value as [number, number])[0]}</span>
             <span>{(val.value as [number, number])[1]}</span>
           </div>
@@ -136,7 +135,7 @@ export const UIAtom = component$<UIAtomProps>(({
 
       {type === 'button' && (
         <button
-          class={`px-2 py-1 bg-gray-100 rounded hover:bg-gray-200 ${className}`}
+          class={`px-4 py-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm hover:bg-gray-50 transition ${className}`}
           onClick$={onClick$}
         >
           {label || <Slot />}
@@ -145,7 +144,7 @@ export const UIAtom = component$<UIAtomProps>(({
 
       {type === 'fab' && (
         <button
-          class={`fixed bottom-2 right-2 p-2 bg-pink-500 text-white rounded-full shadow hover:bg-pink-600 ${className}`}
+          class={`fixed bottom-6 right-6 p-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition ${className}`}
           onClick$={onClick$}
         >
           {label || '+'}
@@ -154,20 +153,20 @@ export const UIAtom = component$<UIAtomProps>(({
 
       {type === 'icon-button' && (
         <button
-          class={`flex items-center gap-1 p-1 rounded hover:bg-gray-100 ${className}`}
+          class={`flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 transition ${className}`}
           onClick$={onClick$}
           aria-label={label}
         >
-          {icon && <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">{icons[icon]}</svg>}
-          {label && <span class="text-xs">{label}</span>}
+          {icon && <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">{icons[icon]}</svg>}
+          {label && <span class="text-sm font-medium">{label}</span>}
         </button>
       )}
 
       {type === 'badge' && category && (
-        <span class={`px-1 py-0.5 rounded-full text-xs ${getBadgeColor(category)} ${className}`}>
+        <span class={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${getBadgeColor(category)} ${className}`}>
           {icon === 'verified' ? (
             <span class="flex items-center gap-1">
-              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">{icons['verified']}</svg>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">{icons['verified']}</svg>
               {category}
             </span>
           ) : category}
@@ -176,7 +175,7 @@ export const UIAtom = component$<UIAtomProps>(({
 
       {type === 'filter' && (
         <select
-          class={`w-full p-1 border rounded ${className}`}
+          class={`w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition ${className}`}
           value={val.value as string}
           onChange$={(e) => val.value = (e.target as HTMLSelectElement).value}
         >
@@ -187,25 +186,25 @@ export const UIAtom = component$<UIAtomProps>(({
       )}
 
       {type === 'facet' && (
-        <div class={`p-2 rounded bg-gray-100 ${className}`}>
-          {title && <h3 class="text-sm font-semibold mb-1">{title}</h3>}
+        <div class={`p-4 rounded-lg bg-white shadow-sm border border-gray-200 ${className}`}>
+          {title && <h3 class="text-base font-semibold mb-2">{title}</h3>}
           <Slot />
         </div>
       )}
 
       {type === 'icon' && icon && (
-        <svg class={`w-4 h-4 ${className}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class={`w-5 h-5 ${className}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           {icons[icon]}
         </svg>
       )}
 
       {type === 'loader' && (
-        <div class={label === 'skeleton' ? `bg-gray-200 h-4 w-full animate-pulse ${className}` : `animate-spin rounded-full h-6 w-6 border-t-2 border-blue-500 ${className}`} />
+        <div class={label === 'skeleton' ? `bg-gray-300 h-4 w-full animate-pulse rounded ${className}` : `animate-spin rounded-full h-6 w-6 border-t-2 border-blue-500 ${className}`} />
       )}
 
       {type === 'swipeable' && (
         <div
-          class={className}
+          class={`transition-transform ${className}`}
           onTouchStart$={(e) => touchStart.value = e.touches[0].clientX}
           onTouchEnd$={(e) => {
             if (touchStart.value - e.changedTouches[0].clientX > 100) onDismiss$?.();

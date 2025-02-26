@@ -1,4 +1,4 @@
-// src/components/organisms/UIOrganism.tsx
+// src/components/organisms/UIOrganism.tsx 
 import { component$, useSignal, $, HTMLAttributes, QwikJSX } from '@builder.io/qwik';
 // Fix 1: Remove useDocumentHead import
 
@@ -33,6 +33,12 @@ interface UIOrganismProps {
     savedModelsCount?: number; // Fix 5: Add missing properties
     activeLabsFollowed?: number; // Fix 6
     recentInteractions?: number; // Fix 7
+    // Optional hero properties (if provided, they override defaults)
+    backgroundImage?: string;
+    headline?: string;
+    subheadline?: string;
+    ctaText?: string;
+    ctaLink?: string;
   };
   onSubmit$?: (email: string, password: string) => void;
   onSelect$?: () => void;
@@ -51,6 +57,11 @@ type DataObject = {
   savedModelsCount?: number;
   activeLabsFollowed?: number;
   recentInteractions?: number;
+  backgroundImage?: string;
+  headline?: string;
+  subheadline?: string;
+  ctaText?: string;
+  ctaLink?: string;
 };
 
 export const UIOrganism = component$<UIOrganismProps>(({
@@ -167,8 +178,8 @@ export const UIOrganism = component$<UIOrganismProps>(({
         <div class="py-2">
           <div class="grid grid-cols-1 md:grid-cols-4 gap-1 text-xs">
             <div>
-              <h3 class="font-bold">EpixaL</h3>
-              <p class="text-gray-400">Discover AI tools.</p>
+              <h3 class="font-bold">ModelMall.ai</h3>
+              <p class="text-gray-400">Discover the next AI you need.</p>
             </div>
             <div>
               <h4 class="font-semibold">Links</h4>
@@ -194,36 +205,87 @@ export const UIOrganism = component$<UIOrganismProps>(({
         </div>
       )}
 
-      {type === 'header' && (
-        <div class="flex justify-between items-center py-1">
-          <a href="/" class="text-sm font-bold">EpixaL</a>
-          <nav class="hidden md:flex gap-1">
-            {['Playaround', 'Categories', 'Statistics', 'Docs', 'Blog'].map((link) => (
-              <a key={link} href={`/${link.toLowerCase()}`} class="p-1 rounded hover:bg-gray-700 text-xs">{link}</a>
-            ))}
-          </nav>
-          <div class="flex gap-1">
-            <div class="relative">
-              <input type="text" placeholder="Search..." class="p-1 rounded bg-gray-800 text-white text-xs" />
-              <svg class="absolute right-1 top-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" /></svg>
-            </div>
-            <button class="p-1 bg-blue-500 rounded text-xs hover:bg-blue-600">Sign In</button>
-          </div>
-        </div>
-      )}
+{type === 'header' && (
+  <header class="flex items-center justify-between px-4 py-2 bg-gray-900 text-white">
+    {/* Left side: Brand + Nav */}
+    <div class="flex items-center space-x-6">
+      <a href="/" class="text-lg font-bold">ModelMall</a>
+      <nav class="hidden lg:flex space-x-4">
+        <a href="#" class="hover:text-gray-300">Market Data</a>
+        <a href="#" class="hover:text-gray-300">Dashboard</a>
+        <a href="#" class="hover:text-gray-300">Clients</a>
+        <a href="#" class="hover:text-gray-300">Visualizer</a>
+        <a href="#" class="hover:text-gray-300">Knowledge</a>
+        <a href="#" class="hover:text-gray-300">More</a>
+      </nav>
+    </div>
 
-      {type === 'hero' && (
-        <div class="relative flex items-center justify-center overflow-hidden">
-          <video autoplay muted loop class="absolute w-full h-full object-cover opacity-50">
-            <source src="/bg-motion.mp4" type="video/mp4" />
-          </video>
-          <div class="text-center text-white">
-            <h1 class="text-xl font-bold">Discover AI</h1>
-            <p class="text-xs">Explore cutting-edge models.</p>
-            <button class="mt-1 p-1 bg-blue-500 rounded text-xs hover:bg-blue-600">Get Started</button>
-          </div>
+    {/* Center: Search */}
+    <div class="relative hidden md:block flex-1 max-w-xl mx-4">
+      <input
+        type="text"
+        placeholder="Search for things, addresses, or attributes..."
+        class="w-full py-2 pl-10 pr-4 rounded bg-gray-800 text-sm placeholder-gray-400
+               focus:outline-none focus:ring-1 focus:ring-blue-500"
+      />
+      <svg
+        class="absolute left-2 top-2 w-4 h-4 text-gray-400"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1
+                 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+      </svg>
+    </div>
+
+    {/* Right side: Links + Sign Up */}
+    <div class="flex items-center space-x-4">
+      <a href="#" class="hover:text-gray-300">RunFlow</a>
+      <a href="#" class="hover:text-gray-300">Buttons</a>
+      <a href="#" class="hover:text-gray-300">Parallel Labs</a>
+      <a href="#" class="hover:text-gray-300">Q</a>
+      <a href="#" class="hover:text-gray-300">Login</a>
+      <a
+        href="#"
+        class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded"
+      >
+        Sign Up
+      </a>
+    </div>
+  </header>
+)}
+
+
+{type === 'hero' && (
+  <div class="bg-white py-8">
+    {/* Centered Headline */}
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-800">Just introduced. Discover the latest AI models.</h1>
+      <div class="w-16 h-1 bg-gray-300 mx-auto mt-4"></div>
+    </div>
+
+    {/* Grid of Cards */}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+      {Array.isArray(data) && data.map((item, index) => (
+        <div key={index} class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
+          {/* Image */}
+          <img src={item.image} alt={item.headline} class="w-full h-48 object-cover rounded-md mb-4" />
+
+          {/* Headline */}
+          <h2 class="text-xl font-bold text-gray-800 mb-2">{item.headline}</h2>
+
+          {/* Subheadline */}
+          <p class="text-sm text-gray-600 mb-4">{item.subheadline}</p>
+
+          {/* CTA Button */}
+          <a href={item.ctaLink} class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+            {item.ctaText}
+          </a>
         </div>
-      )}
+      ))}
+    </div>
+  </div>
+)}
 
       {type === 'leaderboard' && (
         <div class="overflow-x-auto">
@@ -364,9 +426,17 @@ export const UIOrganism = component$<UIOrganismProps>(({
                   <td class="p-1">#{idx + 1}</td>
                   <td class="p-1 flex gap-1"><img src={cat.icon_url} alt={cat.name} class="w-4 h-4 rounded" />{cat.name}</td>
                   <td class="p-1">{cat.model_count}</td>
-                  <td class="p-1"><div class="w-full h-1 bg-gray-200 rounded"><div class="h-1 bg-blue-500 rounded" style={{ width: `${cat.dominance}%` }} /></div></td>
+                  <td class="p-1">
+                    <div class="w-full h-1 bg-gray-200 rounded">
+                      <div class="h-1 bg-blue-500 rounded" style={{ width: `${cat.dominance}%` }} />
+                    </div>
+                  </td>
                   <td class="p-1">${cat.total_compute_cost.toLocaleString()}</td>
-                  <td class="p-1 flex justify-end"><span class={cat.weekly_trend > 0 ? 'text-green-500' : 'text-red-500'}>{cat.weekly_trend > 0 ? '↑' : '↓'}{Math.abs(cat.weekly_trend)}%</span></td>
+                  <td class="p-1 flex justify-end">
+                    <span class={cat.weekly_trend > 0 ? 'text-green-500' : 'text-red-500'}>
+                      {cat.weekly_trend > 0 ? '↑' : '↓'}{Math.abs(cat.weekly_trend)}%
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
